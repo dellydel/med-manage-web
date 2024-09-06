@@ -4,6 +4,8 @@ on:
   pull_request_review:
     types: [submitted]
 
+  workflow_dispatch:
+
 jobs:
   Deploy:
     if: github.event.review.state == 'approved'
@@ -26,5 +28,5 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{  secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-    #   - name: Deploy to S3
-    #     run: aws s3 sync ./build s3://${{ github.ref == 'refs/heads/main' && 'www.nextbyteweb.com' || 'dev.nextbyteweb.com'}}
+      - name: Deploy to S3
+        run: aws s3 sync ./build s3://${{ github.ref == 'refs/heads/main' && 'medmanage.nextbyteweb.com' || 'medmanagedev.nextbyteweb.com'}}
