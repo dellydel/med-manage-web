@@ -1,0 +1,30 @@
+name: Deploy Front End - Development
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  Deploy:
+    if: github.event.review.state == 'approved' && github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Setup Node
+        uses: actions/setup-node@master
+        with:
+          node-version: "18"
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Site
+        run: npm run build -- --mode development
+      - name: Configure AWS Creds
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{  secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Deploy to S3
+        run: aws s3 sync ./build s3://medmanagedev.nextbyteweb.com

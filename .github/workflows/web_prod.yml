@@ -1,14 +1,20 @@
-name: Deploy Front End
+name: Deploy Front End - Production
 
 on:
-  pull_request_review:
-    types: [submitted]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment Environment"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
 
 jobs:
   Deploy:
-    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+    environment: production
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -19,7 +25,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build Site
-        run: npm run build -- --mode ${{ github.ref == 'refs/heads/main' && 'production' || 'development'}}
+        run: npm run build -- --mode production
       - name: Configure AWS Creds
         uses: aws-actions/configure-aws-credentials@master
         with:
@@ -27,4 +33,4 @@ jobs:
           aws-secret-access-key: ${{  secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy to S3
-        run: aws s3 sync ./build s3://${{ github.ref == 'refs/heads/main' && 'medmanage.nextbyteweb.com' || 'medmanagedev.nextbyteweb.com'}}
+        run: aws s3 sync ./build s3://medmanage.nextbyteweb.com
