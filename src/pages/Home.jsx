@@ -1,9 +1,8 @@
 import NavBar from "../NavBar";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Groups2Icon from "@mui/icons-material/Groups2";
-import AirlineSeatFlatAngledTwoToneIcon from "@mui/icons-material/AirlineSeatFlatAngledTwoTone";
+import { Button, Box } from "@mui/material";
+import { Groups2, AirlineSeatFlatAngledTwoTone } from "@mui/icons-material";
 import "../App.css";
+
 const Home = () => {
   return (
     <div>
@@ -19,8 +18,7 @@ const Home = () => {
           sx={{ textTransform: "none" }}
           size="large"
           variant="contained"
-          color="primary"
-          startIcon={<Groups2Icon />}
+          startIcon={<Groups2 />}
         >
           Employee Management
         </Button>
@@ -28,8 +26,7 @@ const Home = () => {
           sx={{ textTransform: "none" }}
           size="large"
           variant="contained"
-          color="primary"
-          startIcon={<AirlineSeatFlatAngledTwoToneIcon />}
+          startIcon={<AirlineSeatFlatAngledTwoTone />}
         >
           Patients Management
         </Button>
