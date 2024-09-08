@@ -15,7 +15,7 @@ const Home = () => {
         }}
       >
         <Button
-          sx={{ textTransform: "none", py: 7, px: 7 }}
+          sx={{ textTransform: "none", py: 8, px: 8 }}
           size="large"
           variant="contained"
           startIcon={<Groups2 />}
@@ -23,7 +23,7 @@ const Home = () => {
           Employee Management
         </Button>
         <Button
-          sx={{ textTransform: "none", py: 7, px: 7 }}
+          sx={{ textTransform: "none", py: 8, px: 8 }}
           size="large"
           variant="contained"
           startIcon={<AirlineSeatFlatAngledTwoTone />}
