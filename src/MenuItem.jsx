@@ -1,7 +1,7 @@
 import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 function MenuItem() {
   return (
-    <Drawer anchor="left" open={true}>
+    <Drawer anchor="left" open={true} sx={{ zIndex: 1 }}>
       <List>
         <ListItem button>
           <ListItemText primary="Archived Patients" />
@@ -18,7 +18,6 @@ function MenuItem() {
         <ListItem button>
           <ListItemText primary="Archived Patients" />
         </ListItem>
-        {/* Add more menu items as needed */}
       </List>
     </Drawer>
   );
