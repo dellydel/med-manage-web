@@ -3,14 +3,6 @@ name: Deploy Front End - Development
 on:
   pull_request_review:
     types: [submitted]
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Deployment Environment"
-        type: choice
-        options:
-          - development
-          - production
 
 jobs:
   Deploy:
