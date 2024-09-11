@@ -1,22 +1,27 @@
-import { Drawer, List, ListItem, ListItemText } from "@mui/material";
+import { Drawer, List, ListItem, Link } from "@mui/material";
 function MenuItem() {
   return (
-    <Drawer anchor="left" open={true} sx={{ zIndex: 1 }}>
+    <Drawer anchor="left" open={true} variant="persistent">
       <List>
-        <ListItem button>
-          <ListItemText primary="Archived Patients" />
+        <ListItem>
+          <Link href="/employees" sx={{ textDecoration: "none" }}>
+            Employee Management
+          </Link>
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Employee Management" />
+        <ListItem>
+          <Link href="/patients" sx={{ textDecoration: "none" }}>
+            Patients Management
+          </Link>
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Patients Management" />
+        <ListItem>
+          <Link href="/admin" sx={{ textDecoration: "none" }}>
+            Admin
+          </Link>
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Admin" />
-        </ListItem>
-        <ListItem button>
-          <ListItemText primary="Archived Patients" />
+        <ListItem>
+          <Link href="/patients" sx={{ textDecoration: "none" }}>
+            Archived Patients
+          </Link>
         </ListItem>
       </List>
     </Drawer>
