@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import MenuItem from "./MenuItem";
-import Logo from "./Logo";
+
 function NavBar() {
   return (
     <div>
@@ -8,7 +8,7 @@ function NavBar() {
         <Toolbar>
           <Typography></Typography>
         </Toolbar>
-        <Logo />
+        <p></p>
         <MenuItem />
       </AppBar>
     </div>

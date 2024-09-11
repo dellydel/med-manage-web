@@ -1,9 +1,13 @@
 import { Drawer, List, ListItem, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import Logo from "./Logo";
 function MenuItem() {
   return (
     <Drawer anchor="left" open={true} variant="persistent">
       <List>
+        <ListItem>
+          <Logo />
+        </ListItem>
         <ListItem>
           <Link
             component={RouterLink}
@@ -30,7 +34,7 @@ function MenuItem() {
           >
             Admin
           </Link>
-        </ListItem>
+        </ListItem>{" "}
         <ListItem>
           <Link
             component={RouterLink}
