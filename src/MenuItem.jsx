@@ -16,7 +16,7 @@ function MenuItem() {
           >
             Admin
           </Link>
-        </ListItem>{" "}
+        </ListItem>
         <ListItem>
           <Link
             component={RouterLink}
