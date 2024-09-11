@@ -1,22 +1,44 @@
-import { Drawer, List, ListItem, ListItemText } from "@mui/material";
+import { Drawer, List, ListItem, Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 function MenuItem() {
   return (
-    <Drawer anchor="left" open={true} sx={{ zIndex: 1 }}>
+    <Drawer anchor="left" open={true} variant="persistent">
       <List>
-        <ListItem button>
-          <ListItemText primary="Archived Patients" />
+        <ListItem>
+          <Link
+            component={RouterLink}
+            to="/employees"
+            sx={{ textDecoration: "none" }}
+          >
+            Employee Management
+          </Link>
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Employee Management" />
+        <ListItem>
+          <Link
+            component={RouterLink}
+            to="/patients"
+            sx={{ textDecoration: "none" }}
+          >
+            Patients Management
+          </Link>
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Patients Management" />
+        <ListItem>
+          <Link
+            component={RouterLink}
+            to="/admin"
+            sx={{ textDecoration: "none" }}
+          >
+            Admin
+          </Link>
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Admin" />
-        </ListItem>
-        <ListItem button>
-          <ListItemText primary="Archived Patients" />
+        <ListItem>
+          <Link
+            component={RouterLink}
+            to="/patients"
+            sx={{ textDecoration: "none" }}
+          >
+            Archived Patients
+          </Link>
         </ListItem>
       </List>
     </Drawer>

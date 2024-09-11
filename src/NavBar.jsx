@@ -4,7 +4,7 @@ import Logo from "./Logo";
 function NavBar() {
   return (
     <div>
-      <AppBar position="fixed" sx={{ zIndex: -1 }}>
+      <AppBar position="fixed">
         <Toolbar>
           <Typography></Typography>
         </Toolbar>
