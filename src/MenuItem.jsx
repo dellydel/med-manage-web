@@ -16,24 +16,6 @@ function MenuItem() {
         <ListItem>
           <Link
             component={RouterLink}
-            to="/employees"
-            sx={{ textDecoration: "none" }}
-          >
-            Employee Management
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link
-            component={RouterLink}
-            to="/patients"
-            sx={{ textDecoration: "none" }}
-          >
-            Patients Management
-          </Link>
-        </ListItem>
-        <ListItem>
-          <Link
-            component={RouterLink}
             to="/admin"
             sx={{ textDecoration: "none" }}
           >
@@ -47,6 +29,24 @@ function MenuItem() {
             sx={{ textDecoration: "none" }}
           >
             Archived Patients
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link
+            component={RouterLink}
+            to="/employees"
+            sx={{ textDecoration: "none" }}
+          >
+            Employee Management
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link
+            component={RouterLink}
+            to="/patients"
+            sx={{ textDecoration: "none" }}
+          >
+            Patients Management
           </Link>
         </ListItem>
       </List>
