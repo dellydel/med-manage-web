@@ -1,13 +1,18 @@
 import { Drawer, List, ListItem, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import Logo from "./Logo";
 function MenuItem() {
   return (
-    <Drawer anchor="left" open={true} variant="persistent">
+    <Drawer
+      anchor="left"
+      open={true}
+      variant="persistent"
+      PaperProps={{
+        sx: {
+          top: 65,
+        },
+      }}
+    >
       <List>
-        <ListItem>
-          <Logo />
-        </ListItem>
         <ListItem>
           <Link
             component={RouterLink}

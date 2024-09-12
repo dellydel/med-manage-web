@@ -4,7 +4,8 @@ function Logo() {
   return (
     <Box
       component="img"
-      sx={{ width: 204 }}
+      position="fixed"
+      sx={{ width: 202 }}
       src={logo_url}
       alt="Caring hands"
     />
