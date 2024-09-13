@@ -9,6 +9,10 @@ const Home = () => {
         display: "flex",
         flexWrap: "wrap",
         gap: 6,
+        height: "70vh",
+        width: "70vw",
+        justifyContent: "center",
+        alignContent: "center"
       }}
     >
       <Button
