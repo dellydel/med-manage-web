@@ -10,6 +10,7 @@ const Navigation = () => {
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Toolbar variant="tall">
+        <Logo />
         {user && (
           <>
             <Box sx={{ flexGrow: 1 }} />
@@ -30,7 +31,6 @@ const Navigation = () => {
           </>
         )}
       </Toolbar>
-      <Logo />
     </AppBar>
   );
 };
