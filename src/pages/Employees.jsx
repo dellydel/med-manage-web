@@ -19,7 +19,7 @@ const Employees = () => {
     },
   ]);
 
-  const [columnDefs] = useState([
+  const columnDefs = [
     { field: "serialNo", headerName: "S No" },
     { field: "employeeType", headerName: "Employee Type" },
     {
@@ -28,7 +28,6 @@ const Employees = () => {
         params.value.replace(/\w\S*/g, (t) => {
           return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
         }),
-
       headerName: "Clinician Name",
     },
     { field: "clinicianEmailId", headerName: "Clinician Email (ID)" },
@@ -38,7 +37,7 @@ const Employees = () => {
     { field: "reOpen", headerName: "Re Open" },
     { field: "total", headerName: "Total" },
     { field: "lastLogin", headerName: "Last Login" },
-  ]);
+  ];
   return (
     <div className="ag-theme-alpine" style={{ height: "70vh", width: "80vw" }}>
       <AgGridReact rowData={rowData} columnDefs={columnDefs} />
