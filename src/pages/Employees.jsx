@@ -22,7 +22,15 @@ const Employees = () => {
   const [columnDefs] = useState([
     { field: "serialNo", headerName: "S No" },
     { field: "employeeType", headerName: "Employee Type" },
-    { field: "clinicianName", headerName: "Clinician Name" },
+    {
+      field: "clinicianName",
+      valueFormatter: (params) =>
+        params.value.replace(/\w\S*/g, (t) => {
+          return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
+        }),
+
+      headerName: "Clinician Name",
+    },
     { field: "clinicianEmailId", headerName: "Clinician Email (ID)" },
     { field: "assigned", headerName: "Assigned" },
     { field: "onGoing", headerName: "On going" },
