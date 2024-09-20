@@ -27,19 +27,19 @@ function MenuItem() {
           <ListItem>
             <Link
               component={RouterLink}
-              to="/patients"
+              to="/employees"
               sx={{ textDecoration: "none" }}
             >
-              Archived Patients
+              Employee Management
             </Link>
           </ListItem>
           <ListItem>
             <Link
               component={RouterLink}
-              to="/employees"
+              to="/patients"
               sx={{ textDecoration: "none" }}
             >
-              Employee Management
+              InPatient Management
             </Link>
           </ListItem>
           <ListItem>
