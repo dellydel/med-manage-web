@@ -8,8 +8,8 @@ const Home = () => {
         display: "flex",
         flexWrap: "wrap",
         gap: 6,
-        height: "70vh",
-        width: "70vw",
+        height: "100vh",
+        width: "100vw",
         justifyContent: "center",
         alignContent: "center",
       }}
@@ -29,6 +29,14 @@ const Home = () => {
         startIcon={<AirlineSeatFlatAngledTwoTone />}
       >
         Patients Management
+      </Button>
+      <Button
+        sx={{ textTransform: "none", py: 5, px: 8 }}
+        size="large"
+        variant="contained"
+        startIcon={<AirlineSeatFlatAngledTwoTone />}
+      >
+        In-Patient Management
       </Button>
     </Box>
   );
