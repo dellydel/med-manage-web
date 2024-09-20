@@ -9,7 +9,7 @@ const Patients = () => {
       patientID: "CHCP1045",
       patientName: "GERALD ARNORLD",
       patientEmail: "epipat.pe@gmail.com(CHCC0008)",
-      clinitianAssignedId: "CHCC0008",
+      clinicianAssignedId: "CHCC0008",
       assignedTo: "ButtonHere",
       status: "IN PROGRESS",
     },
@@ -27,7 +27,7 @@ const Patients = () => {
       headerName: "Patient Name",
     },
     { field: "patientEmail", headerName: "Patient Email" },
-    { field: "clinitianAssignedId", headerName: "Clinitian Assigned (ID)" },
+    { field: "clinicianAssignedId", headerName: "Clinician Assigned (ID)" },
     { field: "assignedTo", headerName: "Assigned To" },
     { field: "status", headerName: "Status" },
   ];
