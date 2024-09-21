@@ -15,7 +15,16 @@ const Home = () => {
       }}
     >
       <Button
-        sx={{ textTransform: "none", py: 5, px: 8 }}
+        sx={{
+          textTransform: "none",
+          py: 5,
+          px: 8,
+          bgcolor: "white",
+          color: "#000",
+          "&:hover": {
+            bgcolor: "blue",
+          },
+        }}
         size="large"
         variant="contained"
         startIcon={<Groups2 />}
@@ -23,7 +32,16 @@ const Home = () => {
         Employee Management
       </Button>
       <Button
-        sx={{ textTransform: "none", py: 5, px: 8 }}
+        sx={{
+          textTransform: "none",
+          py: 5,
+          px: 8,
+          bgcolor: "white",
+          color: "#000",
+          "&:hover": {
+            bgcolor: "blue",
+          },
+        }}
         size="large"
         variant="contained"
         startIcon={<AirlineSeatFlatAngledTwoTone />}
@@ -31,7 +49,16 @@ const Home = () => {
         Patients Management
       </Button>
       <Button
-        sx={{ textTransform: "none", py: 5, px: 8 }}
+        sx={{
+          textTransform: "none",
+          py: 5,
+          px: 8,
+          bgcolor: "white",
+          color: "#000",
+          "&:hover": {
+            bgcolor: "blue",
+          },
+        }}
         size="large"
         variant="contained"
         startIcon={<AirlineSeatFlatAngledTwoTone />}
