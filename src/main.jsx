@@ -5,6 +5,11 @@ import { BrowserRouter } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
+  palette: {
+    background: {
+      default: "#eeeeee",
+    },
+  },
   components: {
     MuiToolbar: {
       styleOverrides: {

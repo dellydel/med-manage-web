@@ -8,14 +8,23 @@ const Home = () => {
         display: "flex",
         flexWrap: "wrap",
         gap: 6,
-        height: "70vh",
-        width: "70vw",
+        height: "100vh",
+        width: "100vw",
         justifyContent: "center",
         alignContent: "center",
       }}
     >
       <Button
-        sx={{ textTransform: "none", py: 5, px: 8 }}
+        sx={{
+          textTransform: "none",
+          py: 5,
+          px: 8,
+          bgcolor: "white",
+          color: "#000",
+          "&:hover": {
+            bgcolor: "blue",
+          },
+        }}
         size="large"
         variant="contained"
         startIcon={<Groups2 />}
@@ -23,12 +32,38 @@ const Home = () => {
         Employee Management
       </Button>
       <Button
-        sx={{ textTransform: "none", py: 5, px: 8 }}
+        sx={{
+          textTransform: "none",
+          py: 5,
+          px: 8,
+          bgcolor: "white",
+          color: "#000",
+          "&:hover": {
+            bgcolor: "blue",
+          },
+        }}
         size="large"
         variant="contained"
         startIcon={<AirlineSeatFlatAngledTwoTone />}
       >
         Patients Management
+      </Button>
+      <Button
+        sx={{
+          textTransform: "none",
+          py: 5,
+          px: 8,
+          bgcolor: "white",
+          color: "#000",
+          "&:hover": {
+            bgcolor: "blue",
+          },
+        }}
+        size="large"
+        variant="contained"
+        startIcon={<AirlineSeatFlatAngledTwoTone />}
+      >
+        In-Patient Management
       </Button>
     </Box>
   );
