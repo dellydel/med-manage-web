@@ -39,7 +39,7 @@ function MenuItem() {
               to="/patients"
               sx={{ textDecoration: "none" }}
             >
-              InPatient Management
+              In-Service Management
             </Link>
           </ListItem>
           <ListItem>
