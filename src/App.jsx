@@ -3,7 +3,7 @@ import Employees from "./pages/Employees";
 import Patients from "./pages/Patients";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
-import InPatient from "./pages/InPatient";
+import InService from "./pages/InService";
 import Layout from "./pages/Layout";
 import { AuthProvider } from "./hooks/useAuth";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -13,21 +13,21 @@ const App = () => {
   return (
     <AuthProvider>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Login />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
+        <Route path="/" element={<Layout />}>
+          <Route path="/login" element={<Login />} />
           <Route
             path="/home"
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
               </ProtectedRoute>
             }
           />
@@ -48,10 +48,10 @@ const App = () => {
             }
           />
           <Route
-            path="/in-patient"
+            path="/in-service"
             element={
               <ProtectedRoute>
-                <InPatient />
+                <InService />
               </ProtectedRoute>
             }
           />

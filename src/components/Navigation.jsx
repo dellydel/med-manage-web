@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import { useAuth } from "../hooks/useAuth";
 
 const Navigation = () => {
-  const { logout, user } = useAuth();
+  const { logout_user, user } = useAuth();
   return (
     <AppBar
       position="fixed"
@@ -23,7 +23,7 @@ const Navigation = () => {
                 }}
                 component={"a"}
                 href="#"
-                onClick={logout}
+                onClick={logout_user}
               >
                 Logout
               </Box>

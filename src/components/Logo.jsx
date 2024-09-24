@@ -8,7 +8,7 @@ function Logo() {
     <Box
       sx={{ cursor: "pointer" }}
       component="img"
-      height={75}
+      height={55}
       position="fixed"
       src={logo_url}
       alt="NextByte"

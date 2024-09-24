@@ -36,10 +36,10 @@ function MenuItem() {
           <ListItem>
             <Link
               component={RouterLink}
-              to="/patients"
+              to="/in-service"
               sx={{ textDecoration: "none" }}
             >
-              InPatient Management
+              In-Service Management
             </Link>
           </ListItem>
           <ListItem>

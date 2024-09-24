@@ -1,12 +1,22 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box, Toolbar } from "@mui/material";
 import MenuItem from "../components/MenuItem";
 import { useAuth } from "../hooks/useAuth";
+import { useEffect } from "react";
 
 const Layout = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && location.pathname === "/") {
+      navigate("/home", { replace: true });
+    } else if (!user && location.pathname === "/") {
+      navigate("/login", { replace: true });
+    }
+  }, [navigate, user]);
 
   return (
     <Box sx={{ display: "flex" }}>
