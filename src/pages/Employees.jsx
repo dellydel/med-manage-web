@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
@@ -40,7 +40,13 @@ const Employees = () => {
   ];
   return (
     <div className="ag-theme-alpine" style={{ height: "70vh", width: "80vw" }}>
-      <AgGridReact rowData={rowData} columnDefs={columnDefs} />
+      <AgGridReact
+        rowData={rowData}
+        columnDefs={columnDefs}
+        pagination={true}
+        paginationPageSize={10}
+        paginationPageSizeSelector={[10]}
+      />
     </div>
   );
 };
