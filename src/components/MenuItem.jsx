@@ -48,7 +48,7 @@ function MenuItem() {
               to="/patients"
               sx={{ textDecoration: "none" }}
             >
-              Patients Management
+              Patient Management
             </Link>
           </ListItem>
         </List>
