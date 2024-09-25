@@ -21,7 +21,7 @@ const Login = () => {
     try {
       await login_user(email, password);
     } catch (err) {
-      setError(err.message);
+      setError(err.response.data);
     }
   };
 
