@@ -12,14 +12,16 @@ import { useAuth } from "../hooks/useAuth";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const [error, setError] = useState(null);
+  const { login_user } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (email === "email@test.com" && password === "password") {
-      await login({ email });
-    } else {
-      alert("Invalid username or password");
+    setError(null);
+    try {
+      await login_user(email, password);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -50,6 +52,7 @@ const Login = () => {
               variant="outlined"
               type="email"
               value={email}
+              autoComplete="email"
               onChange={(e) => setEmail(e.target.value)}
               fullWidth
               required
@@ -60,6 +63,7 @@ const Login = () => {
               variant="outlined"
               type="password"
               value={password}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
               fullWidth
               required
@@ -73,7 +77,7 @@ const Login = () => {
               }}
             >
               <span>
-                <input type="checkbox" /> Remember me?
+                <input name="remember" type="checkbox" /> Remember me?
               </span>
               <Button
                 type="submit"
@@ -83,6 +87,9 @@ const Login = () => {
               >
                 Log In
               </Button>
+            </Box>
+            <Box component="div" sx={{ color: "red", mt: 4 }}>
+              {error}
             </Box>
           </Box>
         </Card>

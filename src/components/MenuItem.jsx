@@ -36,7 +36,7 @@ function MenuItem() {
           <ListItem>
             <Link
               component={RouterLink}
-              to="/patients"
+              to="/in-service"
               sx={{ textDecoration: "none" }}
             >
               In-Service Management
