@@ -63,7 +63,7 @@ const Home = () => {
         variant="contained"
         startIcon={<AirlineSeatFlatAngledTwoTone />}
       >
-        In-Patient Management
+        In-Service Management
       </Button>
     </Box>
   );
