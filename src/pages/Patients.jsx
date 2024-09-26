@@ -10,7 +10,7 @@ const Patients = () => {
       patientEmail: "epipat.pe@gmail.com",
       clinicianAssignedId: "CHCC0008",
       assignedTo: "ButtonHere",
-      status: "IN PROGRESS"
+      status: "IN PROGRESS IN PROGRESS"
     }
   ]);
   const columnDefs = [
@@ -37,8 +37,13 @@ const Patients = () => {
     paginationPageSizeSelector: [10],
     onGridReady: (params) => {
       params.api.sizeColumnsToFit();
+      window.setTimeout(() => {
+        const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
+        params.columnApi.autoSizeColumns(colIds);
+      }, 5);
     }
   };
+
   return (
     <div className="ag-theme-alpine" style={{ height: "70vh", width: "80vw" }}>
       <AgGridReact
