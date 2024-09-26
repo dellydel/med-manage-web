@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
@@ -9,25 +9,33 @@ const Patients = () => {
       patientName: "GERALD ARNORLD",
       patientEmail: "epipat.pe@gmail.com",
       clinicianAssignedId: "CHCC0008",
-      assignedTo: "ButtonHere",
       status: "IN PROGRESS IN PROGRESS"
     }
   ]);
-  const columnDefs = [
-    { field: "patientID", headerName: "Patient ID" },
-    {
-      field: "patientName",
-      valueFormatter: (params) =>
-        params.value.replace(/\w\S*/g, (t) => {
-          return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
-        }),
-      headerName: "Patient Name"
-    },
-    { field: "patientEmail", headerName: "Patient Email" },
-    { field: "clinicianAssignedId", headerName: "Clinician Assigned" },
-    { field: "assignedTo", headerName: "Assigned To" },
-    { field: "status", headerName: "Status" }
-  ];
+  const ActionButton = () => {
+    return <button>Re Assign</button>;
+  };
+  const columnDefs = useMemo(() => {
+    return [
+      { field: "patientID", headerName: "Patient ID" },
+      {
+        field: "patientName",
+        valueFormatter: (params) =>
+          params.value.replace(/\w\S*/g, (t) => {
+            return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
+          }),
+        headerName: "Patient Name"
+      },
+      { field: "patientEmail", headerName: "Patient Email" },
+      { field: "clinicianAssignedId", headerName: "Clinician Assigned" },
+      {
+        field: "assignedTo",
+        headerName: "Assigned To",
+        cellRenderer: ActionButton
+      },
+      { field: "status", headerName: "Status" }
+    ];
+  });
   const patientGridOptions = {
     defaultColDef: {
       resizable: true
