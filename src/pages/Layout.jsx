@@ -34,6 +34,7 @@ const Layout = () => {
             alignItems: "center",
           }}
           to={"https://www.nextbyteweb.com/"}
+          target="_blank"
         >
           Powered by NextByte
         </Box>
