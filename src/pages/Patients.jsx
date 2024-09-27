@@ -9,8 +9,8 @@ const Patients = () => {
       patientName: "GERALD ARNORLD",
       patientEmail: "epipat.pe@gmail.com",
       clinicianAssignedId: "CHCC0008",
-      status: "IN PROGRESS IN PROGRESS"
-    }
+      status: "IN PROGRESS IN PROGRESS",
+    },
   ]);
   const ActionButton = () => {
     return <button>Re Assign</button>;
@@ -24,21 +24,21 @@ const Patients = () => {
           params.value.replace(/\w\S*/g, (t) => {
             return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
           }),
-        headerName: "Patient Name"
+        headerName: "Patient Name",
       },
       { field: "patientEmail", headerName: "Patient Email" },
       { field: "clinicianAssignedId", headerName: "Clinician Assigned" },
       {
         field: "assignedTo",
         headerName: "Assigned To",
-        cellRenderer: ActionButton
+        cellRenderer: ActionButton,
       },
-      { field: "status", headerName: "Status" }
+      { field: "status", headerName: "Status" },
     ];
   });
   const patientGridOptions = {
     defaultColDef: {
-      resizable: true
+      resizable: true,
     },
     pagination: true,
     paginationPageSize: 10,
@@ -49,16 +49,22 @@ const Patients = () => {
         const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
         params.columnApi.autoSizeColumns(colIds);
       }, 5);
-    }
+    },
   };
 
   return (
-    <div className="ag-theme-alpine" style={{ height: "70vh", width: "80vw" }}>
-      <AgGridReact
-        rowData={rowData}
-        columnDefs={columnDefs}
-        gridOptions={patientGridOptions}
-      />
+    <div>
+      <h2>Patient Management</h2>
+      <div
+        className="ag-theme-alpine"
+        style={{ height: "70vh", width: "80vw" }}
+      >
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={columnDefs}
+          gridOptions={patientGridOptions}
+        />
+      </div>
     </div>
   );
 };
