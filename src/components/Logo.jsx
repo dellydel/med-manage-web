@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Logo() {
+  const navigate = useNavigate();
   const logo_url = "./logo-white.webp";
   return (
     <Box
@@ -10,7 +12,7 @@ function Logo() {
       position="fixed"
       src={logo_url}
       alt="NextByte"
-      onClick={() => window.open("https://www.nextbyteweb.com/")}
+      onClick={() => navigate("/")}
     />
   );
 }
