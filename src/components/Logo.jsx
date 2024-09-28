@@ -2,8 +2,8 @@ import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Logo() {
-  const logo_url = "./logo-white.webp";
   const navigate = useNavigate();
+  const logo_url = "./logo-white.webp";
   return (
     <Box
       sx={{ cursor: "pointer" }}
