@@ -14,7 +14,7 @@ const Employees = () => {
       completed: 0,
       reOpen: 0,
       total: 7,
-      lastLogin: "17-May-2023 17:36:36"
+      lastLogin: "17-May-2023 17:36:36",
     },
     {
       employeeType: "Clinician",
@@ -25,7 +25,7 @@ const Employees = () => {
       completed: 0,
       reOpen: 0,
       total: 1,
-      lastLogin: "28-Oct-2022 11:56:18"
+      lastLogin: "28-Oct-2022 11:56:18",
     },
     {
       employeeType: "Clinician",
@@ -36,7 +36,7 @@ const Employees = () => {
       completed: 2,
       reOpen: 0,
       total: 4,
-      lastLogin: "3-Feb-2023 17:48:22"
+      lastLogin: "3-Feb-2023 17:48:22",
     },
     {
       employeeType: "Clinician",
@@ -47,7 +47,7 @@ const Employees = () => {
       completed: 41,
       reOpen: 1,
       total: 46,
-      lastLogin: "25-Jul-2024 14:55:12"
+      lastLogin: "25-Jul-2024 14:55:12",
     },
     {
       employeeType: "Clinician",
@@ -58,7 +58,7 @@ const Employees = () => {
       completed: 0,
       reOpen: 0,
       total: 0,
-      lastLogin: "25-Jul-2024 14:55:12"
+      lastLogin: "25-Jul-2024 14:55:12",
     },
     {
       employeeType: "Clinician",
@@ -69,8 +69,8 @@ const Employees = () => {
       completed: 7,
       reOpen: 0,
       total: 10,
-      lastLogin: "25-Jul-202414:48:24"
-    }
+      lastLogin: "25-Jul-202414:48:24",
+    },
   ]);
 
   const columnDefs = [
@@ -81,7 +81,7 @@ const Employees = () => {
         params.value.replace(/\w\S*/g, (t) => {
           return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
         }),
-      headerName: "Clinician Name"
+      headerName: "Clinician Name",
     },
     { field: "clinicianEmailId", headerName: "Clinician Email (ID)" },
     { field: "assigned", headerName: "Assigned" },
@@ -89,12 +89,12 @@ const Employees = () => {
     { field: "completed", headerName: "Completed" },
     { field: "reOpen", headerName: "Re Open" },
     { field: "total", headerName: "Total" },
-    { field: "lastLogin", headerName: "Last Login" }
+    { field: "lastLogin", headerName: "Last Login" },
   ];
 
   const employeeGridOptions = {
     defaultColDef: {
-      resizable: true
+      resizable: true,
     },
     pagination: true,
     paginationPageSize: 10,
@@ -105,15 +105,21 @@ const Employees = () => {
         const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
         params.columnApi.autoSizeColumns(colIds);
       }, 50);
-    }
+    },
   };
   return (
-    <div className="ag-theme-alpine" style={{ height: "70vh", width: "80vw" }}>
-      <AgGridReact
-        rowData={rowData}
-        columnDefs={columnDefs}
-        gridOptions={employeeGridOptions}
-      />
+    <div>
+      <h2>Employee Management</h2>
+      <div
+        className="ag-theme-alpine"
+        style={{ height: "70vh", width: "80vw" }}
+      >
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={columnDefs}
+          gridOptions={employeeGridOptions}
+        />
+      </div>
     </div>
   );
 };
