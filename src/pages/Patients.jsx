@@ -7,9 +7,44 @@ const Patients = () => {
     {
       patientID: "CHCP1045",
       patientName: "GERALD ARNORLD",
-      patientEmail: "epipat.pe@gmail.com",
-      clinicianAssignedId: "CHCC0008",
-      status: "IN PROGRESS IN PROGRESS"
+      patientEmail: "GERALD_ARNORLD_082224153136@calvary.chc",
+      clinicianAssignedId: "Christian Ogala",
+      status: "IN PROGRESS"
+    },
+    {
+      patientID: "CHCP1044",
+      patientName: "PARTRI TLE",
+      patientEmail: "PARTRITLE@YAHOO.COM",
+      clinicianAssignedId: "Christian Ogala",
+      status: "IN PROGRESS"
+    },
+    {
+      patientID: "CHCP1042",
+      patientName: "DALTON MOORE",
+      patientEmail: "DALTON_MOORE_082124220156@calvary.chc",
+      clinicianAssignedId: "Christian Ogala",
+      status: "IN PROGRESS"
+    },
+    {
+      patientID: "CHCP1041",
+      patientName: "RICARDO MARTINEZ",
+      patientEmail: "RICARDO_MARTINEZ_081924221724@calvary.chc",
+      clinicianAssignedId: "Christian Ogala",
+      status: "IN PROGRESS"
+    },
+    {
+      patientID: "CHCP1040",
+      patientName: "ERA JOHNSON",
+      patientEmail: "ERA_JOHNSON_081924145558@.calvary.chc",
+      clinicianAssignedId: "Vivian Onanaragorom",
+      status: "IN PROGRESS"
+    },
+    {
+      patientID: "CHCP1039",
+      patientName: "ELIDIO RAMIREZ CARRILLO",
+      patientEmail: "ELIDIO_RAMIREZCARRILLO_081624215808@gcalvary.chc",
+      clinicianAssignedId: "Christian Ogala",
+      status: "IN PROGRESS"
     }
   ]);
   const ActionButton = () => {
