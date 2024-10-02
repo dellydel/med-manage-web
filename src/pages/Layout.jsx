@@ -27,16 +27,16 @@ const Layout = () => {
         <Toolbar variant="tall" />
         <Outlet />
         <Box
-          component={Link}
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
-          to={"https://www.nextbyteweb.com/"}
-          target="_blank"
         >
-          Powered by NextByte
+          Powered by
+          <Link to={"https://www.nextbyteweb.com/"} target="_blank">
+            <img src="./logo-black.webp" alt="NextByte" height={30} />
+          </Link>
         </Box>
       </Box>
     </Box>
