@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { Button, Box } from "@mui/material";
+import ReAssignButton from "../components/ReAssignButton";
 const Patients = () => {
   const [rowData] = useState([
     {
@@ -10,25 +10,9 @@ const Patients = () => {
       patientName: "GERALD ARNORLD",
       patientEmail: "epipat.pe@gmail.com",
       clinicianAssignedId: "CHCC0008",
-      status: "IN PROGRESS IN PROGRESS",
-    },
+      status: "IN PROGRESS IN PROGRESS"
+    }
   ]);
-  const ReAssignButton = () => {
-    return (
-      <Box>
-        <Button
-          variant="contained"
-          sx={{
-            py: 0,
-            px: 1,
-            textTransform: "none",
-          }}
-        >
-          Re Assign
-        </Button>
-      </Box>
-    );
-  };
   const columnDefs = useMemo(() => {
     return [
       { field: "patientID", headerName: "Patient ID", flex: 1 },
@@ -39,21 +23,21 @@ const Patients = () => {
             return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
           }),
         headerName: "Patient Name",
-        flex: 1,
+        flex: 1
       },
       { field: "patientEmail", headerName: "Patient Email", flex: 1 },
       {
         field: "clinicianAssignedId",
         headerName: "Clinician Assigned",
-        flex: 1,
+        flex: 1
       },
       {
         field: "assignTo",
         headerName: "Assign To",
         width: "118vw",
-        cellRenderer: ReAssignButton,
+        cellRenderer: ReAssignButton
       },
-      { field: "status", headerName: "Status", flex: 1 },
+      { field: "status", headerName: "Status", flex: 1 }
     ];
   });
   return (
