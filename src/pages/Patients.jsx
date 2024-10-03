@@ -10,7 +10,7 @@ const Patients = () => {
       patientName: "GERALD ARNORLD",
       patientEmail: "epipat.pe@gmail.com",
       clinicianAssignedId: "CHCC0008",
-      status: "IN PROGRESS IN PROGRESS"
+      status: "IN PROGRESS"
     }
   ]);
   const columnDefs = useMemo(() => {
