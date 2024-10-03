@@ -11,6 +11,7 @@ const Layout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // TODO: need to validate that user token is still valid (if user)
     if (user && location.pathname === "/") {
       navigate("/home", { replace: true });
     } else if (!user && location.pathname === "/") {

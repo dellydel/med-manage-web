@@ -8,18 +8,57 @@ import {
   Card,
 } from "@mui/material";
 import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
-  const { login_user } = useAuth();
+  const [session, setSession] = useState(null);
+  const [passwordUpdate, setPasswordUpdate] = useState(false);
+  const { setUser, loginUser, updatePassword } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
     try {
-      await login_user(email, password);
+      const response = await loginUser(email, password);
+      if (response.data.message === "Password Update Required.") {
+        setPasswordUpdate(true);
+        setPassword("");
+        setSession(response.data.session);
+      } else if (response.data.accessToken) {
+        setUser({
+          email: email,
+          access_token: response.data.accessToken,
+          id_token: response.data.idToken,
+          refresh_token: response.data.refreshToken,
+        });
+        navigate("/home");
+      }
+    } catch (err) {
+      setError(err.response.data);
+    }
+  };
+
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      const response = await updatePassword(email, password, session);
+      if (response.data.accessToken) {
+        setPasswordUpdate(false);
+        setSession(null);
+        setUser({
+          email: email,
+          access_token: response.data.accessToken,
+          id_token: response.data.idToken,
+          refresh_token: response.data.refreshToken,
+        });
+        navigate("/home");
+      }
     } catch (err) {
       setError(err.response.data);
     }
@@ -40,7 +79,7 @@ const Login = () => {
         <Card elevation={3} sx={{ p: 5 }}>
           <Box
             component="form"
-            onSubmit={handleLogin}
+            onSubmit={passwordUpdate ? handleUpdatePassword : handleLogin}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -58,7 +97,9 @@ const Login = () => {
               required
               sx={{ mb: 2 }}
             />
-            <Typography variant="subtitle1">Password</Typography>
+            <Typography variant="subtitle1">
+              {passwordUpdate && "Update "}Password
+            </Typography>
             <TextField
               variant="outlined"
               type="password"
@@ -69,6 +110,20 @@ const Login = () => {
               required
               sx={{ mb: 2 }}
             />
+            {passwordUpdate && (
+              <>
+                <Typography variant="subtitle1">Confirm Password</Typography>
+                <TextField
+                  variant="outlined"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  fullWidth
+                  required
+                  sx={{ mb: 2 }}
+                />
+              </>
+            )}
             <Box
               sx={{
                 display: "flex",
@@ -85,7 +140,8 @@ const Login = () => {
                 color="primary"
                 sx={{ mt: 2 }}
               >
-                Log In
+                {!passwordUpdate && "Log In"}
+                {passwordUpdate && "Update"}
               </Button>
             </Box>
             <Box component="div" sx={{ color: "red", mt: 4 }}>
