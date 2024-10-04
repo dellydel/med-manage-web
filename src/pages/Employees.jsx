@@ -8,7 +8,7 @@ const Employees = () => {
     {
       employeeType: "Clinician",
       clinicianName: "PATRICIA EPIE",
-      clinicianEmailId: "epipat.pe@gmail.com(CHCC0008)",
+      clinicianEmailId: "epipat.pe@gmail.com",
       assigned: 6,
       onGoing: 1,
       completed: 0,
@@ -19,7 +19,7 @@ const Employees = () => {
     {
       employeeType: "Clinician",
       clinicianName: "YUDI PATEL, PT",
-      clinicianEmailId: "rehabexpertsinc15@gmail.com (CHCC0007)",
+      clinicianEmailId: "rehabexpertsinc15@gmail.com",
       assigned: 0,
       onGoing: 1,
       completed: 0,
@@ -30,7 +30,7 @@ const Employees = () => {
     {
       employeeType: "Clinician",
       clinicianName: "Fabian Ogala",
-      clinicianEmailId: "ogalaf@yahoo.com (CHCC0006)",
+      clinicianEmailId: "ogalaf@yahoo.com",
       assigned: 0,
       onGoing: 2,
       completed: 2,
@@ -41,7 +41,7 @@ const Employees = () => {
     {
       employeeType: "Clinician",
       clinicianName: "Dionne Staten",
-      clinicianEmailId: "dionnestaten@yahoo.com (CHCC0005)",
+      clinicianEmailId: "dionnestaten@yahoo.com",
       assigned: 2,
       onGoing: 2,
       completed: 41,
@@ -52,7 +52,7 @@ const Employees = () => {
     {
       employeeType: "Clinician",
       clinicianName: "Demo Clinician",
-      clinicianEmailId: "demo@yahoo.com(CHCC0004)",
+      clinicianEmailId: "demo@yahoo.com",
       assigned: 0,
       onGoing: 0,
       completed: 0,
@@ -63,7 +63,7 @@ const Employees = () => {
     {
       employeeType: "Clinician",
       clinicianName: "Praise Udjue",
-      clinicianEmailId: "myworldofpraise.pu@gmail.com (CHCC0003)",
+      clinicianEmailId: "myworldofpraise.pu@gmail.com",
       assigned: 1,
       onGoing: 2,
       completed: 7,
@@ -74,7 +74,7 @@ const Employees = () => {
   ]);
 
   const columnDefs = [
-    { field: "employeeType", headerName: "Employee Type" },
+    { field: "employeeType", headerName: "Employee Type", flex: 1 },
     {
       field: "clinicianName",
       valueFormatter: (params) =>
@@ -82,43 +82,22 @@ const Employees = () => {
           return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
         }),
       headerName: "Clinician Name",
+      flex: 1,
     },
-    { field: "clinicianEmailId", headerName: "Clinician Email (ID)" },
-    { field: "assigned", headerName: "Assigned" },
-    { field: "onGoing", headerName: "On going" },
-    { field: "completed", headerName: "Completed" },
-    { field: "reOpen", headerName: "Re Open" },
-    { field: "total", headerName: "Total" },
-    { field: "lastLogin", headerName: "Last Login" },
+    { field: "clinicianEmailId", headerName: "Clinician Email", flex: 1 },
+    { field: "assigned", headerName: "Assigned", flex: 1 },
+    { field: "onGoing", headerName: "On going", flex: 1 },
+    { field: "completed", headerName: "Completed", flex: 1 },
+    { field: "reOpen", headerName: "Re Open", flex: 1 },
+    { field: "total", headerName: "Total", flex: 1 },
+    { field: "lastLogin", headerName: "Last Login", flex: 1 },
   ];
 
-  const employeeGridOptions = {
-    defaultColDef: {
-      resizable: true,
-    },
-    pagination: true,
-    paginationPageSize: 10,
-    paginationPageSizeSelector: [10],
-    onGridReady: (params) => {
-      params.api.sizeColumnsToFit();
-      window.setTimeout(() => {
-        const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
-        params.columnApi.autoSizeColumns(colIds);
-      }, 50);
-    },
-  };
   return (
     <div>
       <h2>Employee Management</h2>
-      <div
-        className="ag-theme-alpine"
-        style={{ height: "70vh", width: "80vw" }}
-      >
-        <AgGridReact
-          rowData={rowData}
-          columnDefs={columnDefs}
-          gridOptions={employeeGridOptions}
-        />
+      <div className="ag-theme-alpine" style={{ height: "70vh" }}>
+        <AgGridReact rowData={rowData} columnDefs={columnDefs} />
       </div>
     </div>
   );
