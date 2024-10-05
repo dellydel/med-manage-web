@@ -7,14 +7,14 @@ import { useQuery } from "@tanstack/react-query";
 const Employees = () => {
   const {
     isPending,
-    data: patients,
+    data: employees,
     error,
   } = useQuery({
     queryKey: ["employees"],
     queryFn: getEployees,
   });
 
-  const [rowData] = [patients];
+  const [rowData] = [employees];
 
   const columnDefs = [
     { field: "employeeType", headerName: "Employee Type", flex: 1 },
@@ -37,7 +37,7 @@ const Employees = () => {
   ];
 
   if (isPending) return "loading...";
-  if (!patients) return "No Employee records";
+  if (!employees) return "No Employee records";
 
   return (
     <div>
