@@ -55,6 +55,7 @@ const Patients = () => {
     },
   };
   if (isPending) return "loading...";
+  if (!patients) return "No patient records";
   return (
     <div>
       <h2>Patient Management</h2>
