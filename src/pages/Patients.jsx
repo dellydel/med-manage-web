@@ -1,17 +1,20 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { useQuery } from "@tanstack/react-query";
+import { getPatients } from "../services/apiPatients";
 const Patients = () => {
-  const [rowData] = useState([
-    {
-      patientID: "CHCP1045",
-      patientName: "GERALD ARNORLD",
-      patientEmail: "epipat.pe@gmail.com",
-      clinicianAssignedId: "CHCC0008",
-      status: "IN PROGRESS IN PROGRESS",
-    },
-  ]);
+  const {
+    isPending,
+    data: patients,
+    error,
+  } = useQuery({
+    queryKey: ["patients"],
+    queryFn: getPatients,
+  });
+
+  const [rowData] = [patients];
   const ActionButton = () => {
     return <button>Re Assign</button>;
   };
@@ -51,7 +54,7 @@ const Patients = () => {
       }, 5);
     },
   };
-
+  if (isPending) return "loading...";
   return (
     <div>
       <h2>Patient Management</h2>
