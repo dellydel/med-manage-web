@@ -37,6 +37,8 @@ const Employees = () => {
   ];
 
   if (isPending) return "loading...";
+  if (!patients) return "No Employee records";
+
   return (
     <div>
       <h2>Employee Management</h2>
