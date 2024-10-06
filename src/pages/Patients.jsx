@@ -51,7 +51,6 @@ const Patients = () => {
       }, 5);
     },
   };
-
   return (
     <div>
       <h2>Patient Management</h2>
@@ -68,5 +67,4 @@ const Patients = () => {
     </div>
   );
 };
-
 export default Patients;
