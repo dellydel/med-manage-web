@@ -13,7 +13,6 @@ const Patients = () => {
     queryKey: ["patients"],
     queryFn: getPatients,
   });
-
   const [rowData] = [patients];
   const ActionButton = () => {
     return <button>Re Assign</button>;
@@ -72,5 +71,4 @@ const Patients = () => {
     </div>
   );
 };
-
 export default Patients;
