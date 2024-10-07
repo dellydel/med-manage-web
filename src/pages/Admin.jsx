@@ -8,21 +8,24 @@ const Home = () => {
         display: "flex",
         flexWrap: "wrap",
         gap: 6,
-        height: "100vh",
-        width: "100vw",
+        height: "65vh",
+
         justifyContent: "center",
         alignContent: "center",
       }}
     >
       <Button
         sx={{
+          height: "5rem",
+          width: "15rem",
           textTransform: "none",
-          py: 5,
-          px: 8,
+
           bgcolor: "white",
           color: "#000",
           "&:hover": {
-            bgcolor: "blue",
+            bgcolor: "#1982c4",
+            color: "white",
+            fontSize: "1.2rem",
           },
         }}
         size="large"
@@ -33,13 +36,16 @@ const Home = () => {
       </Button>
       <Button
         sx={{
+          height: "5rem",
+          width: "15rem",
           textTransform: "none",
-          py: 5,
-          px: 8,
+
           bgcolor: "white",
           color: "#000",
           "&:hover": {
-            bgcolor: "blue",
+            bgcolor: "#1982c4",
+            color: "white",
+            fontSize: "1.2rem",
           },
         }}
         size="large"
@@ -50,13 +56,16 @@ const Home = () => {
       </Button>
       <Button
         sx={{
+          height: "5rem",
+          width: "15rem",
           textTransform: "none",
-          py: 5,
-          px: 8,
+
           bgcolor: "white",
           color: "#000",
           "&:hover": {
-            bgcolor: "blue",
+            bgcolor: "#1982c4",
+            color: "white",
+            fontSize: "1.2rem",
           },
         }}
         size="large"

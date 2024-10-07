@@ -19,7 +19,7 @@ const Patients = () => {
   };
   const columnDefs = useMemo(() => {
     return [
-      { field: "patientID", headerName: "Patient ID" },
+      { field: "patientID", headerName: "Patient ID", flex: 1 },
       {
         field: "patientName",
         valueFormatter: (params) =>
@@ -27,15 +27,21 @@ const Patients = () => {
             return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
           }),
         headerName: "Patient Name",
+        flex: 1
       },
-      { field: "patientEmail", headerName: "Patient Email" },
-      { field: "clinicianAssignedId", headerName: "Clinician Assigned" },
+      { field: "patientEmail", headerName: "Patient Email", flex: 1 },
       {
-        field: "assignedTo",
-        headerName: "Assigned To",
-        cellRenderer: ActionButton,
+        field: "clinicianAssignedId",
+        headerName: "Clinician Assigned",
+        flex: 1
       },
-      { field: "status", headerName: "Status" },
+      {
+        field: "assignTo",
+        headerName: "Assign To",
+        width: "118vw",
+        cellRenderer: ReAssignButton
+      },
+      { field: "status", headerName: "Status", flex: 1 }
     ];
   });
   const patientGridOptions = {
@@ -55,18 +61,12 @@ const Patients = () => {
   };
   if (isPending) return "loading...";
   if (!patients) return "No patient records";
+ main
   return (
     <div>
       <h2>Patient Management</h2>
-      <div
-        className="ag-theme-alpine"
-        style={{ height: "70vh", width: "80vw" }}
-      >
-        <AgGridReact
-          rowData={rowData}
-          columnDefs={columnDefs}
-          gridOptions={patientGridOptions}
-        />
+      <div className="ag-theme-alpine" style={{ height: "70vh" }}>
+        <AgGridReact rowData={rowData} columnDefs={columnDefs} />
       </div>
     </div>
   );
