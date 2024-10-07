@@ -1,7 +1,7 @@
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { getEployees } from "../services/apiEmployees";
+import { getEmployees } from "../services/apiEmployees";
 import { useQuery } from "@tanstack/react-query";
 const Employees = () => {
   const {
@@ -10,7 +10,7 @@ const Employees = () => {
     error,
   } = useQuery({
     queryKey: ["employees"],
-    queryFn: getEployees,
+    queryFn: getEmployees,
   });
   const [rowData] = [employees];
 
