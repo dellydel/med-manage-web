@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     background: {
-      default: "#eeeeee",
+      default: " #e4e4e4",
     },
   },
   components: {
