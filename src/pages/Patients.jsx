@@ -1,18 +1,20 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import ReAssignButton from "../components/ReAssignButton";
+import { useQuery } from "@tanstack/react-query";
+import { getPatients } from "../services/apiPatients";
 const Patients = () => {
-  const [rowData] = useState([
-    {
-      patientID: "CHCP1045",
-      patientName: "GERALD ARNORLD",
-      patientEmail: "epipat.pe@gmail.com",
-      clinicianAssignedId: "CHCC0008",
-      status: "IN PROGRESS"
-    }
-  ]);
+  const {
+    isPending,
+    data: patients,
+    error,
+  } = useQuery({
+    queryKey: ["patients"],
+    queryFn: getPatients,
+  });
+  const [rowData] = [patients];
   const columnDefs = useMemo(() => {
     return [
       { field: "patientID", headerName: "Patient ID", flex: 1 },
@@ -23,23 +25,25 @@ const Patients = () => {
             return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
           }),
         headerName: "Patient Name",
-        flex: 1
+        flex: 1,
       },
       { field: "patientEmail", headerName: "Patient Email", flex: 1 },
       {
         field: "clinicianAssignedId",
         headerName: "Clinician Assigned",
-        flex: 1
+        flex: 1,
       },
       {
         field: "assignTo",
         headerName: "Assign To",
         width: "118vw",
-        cellRenderer: ReAssignButton
+        cellRenderer: ReAssignButton,
       },
-      { field: "status", headerName: "Status", flex: 1 }
+      { field: "status", headerName: "Status", flex: 1 },
     ];
   });
+  if (isPending) return "loading...";
+  if (!patients) return "No patient records!";
   return (
     <div>
       <h2>Patient Management</h2>
@@ -49,5 +53,4 @@ const Patients = () => {
     </div>
   );
 };
-
 export default Patients;
