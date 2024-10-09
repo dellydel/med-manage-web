@@ -39,7 +39,13 @@ const Employees = () => {
     <div>
       <h2>Employee Management</h2>
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
-        <AgGridReact rowData={rowData} columnDefs={columnDefs} />
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={columnDefs}
+          pagination={true}
+          paginationPageSize={10}
+          paginationPageSizeSelector={[10]}
+        />
       </div>
     </div>
   );
