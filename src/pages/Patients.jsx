@@ -41,7 +41,13 @@ const Patients = () => {
       <h2>Patient Management</h2>
       {isPending && <div>loading...</div>}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
-        <AgGridReact rowData={patients} columnDefs={columnDefs} />
+        <AgGridReact
+          rowData={patients}
+          columnDefs={columnDefs}
+          pagination={true}
+          paginationPageSize={10}
+          paginationPageSizeSelector={[10]}
+        />
       </div>
     </div>
   );
