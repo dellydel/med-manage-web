@@ -1,18 +1,14 @@
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { getEmployees } from "../services/apiEmployees";
+import { getEmployees } from "../services/employees";
 import { useQuery } from "@tanstack/react-query";
+
 const Employees = () => {
-  const {
-    isPending,
-    data: employees,
-    error,
-  } = useQuery({
+  const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
   });
-  const [rowData] = [employees];
 
   const columnDefs = [
     { field: "employeeType", headerName: "Employee Type", flex: 1 },
@@ -33,14 +29,14 @@ const Employees = () => {
     { field: "total", headerName: "Total", flex: 1 },
     { field: "lastLogin", headerName: "Last Login", flex: 1 },
   ];
-  if (isPending) return "loading...";
-  if (!employees) return "No Employee records";
+
   return (
     <div>
       <h2>Employee Management</h2>
+      {isPending && <div>loading...</div>}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
-          rowData={rowData}
+          rowData={employees}
           columnDefs={columnDefs}
           pagination={true}
           paginationPageSize={10}
