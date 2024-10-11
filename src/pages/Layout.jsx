@@ -18,15 +18,15 @@ const Layout = () => {
     }
   }, [navigate, user]);
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <CssBaseline />
       <Navigation />
       {user && <MenuItem />}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar variant="tall" />
         <Outlet />
-        <Footer />
       </Box>
+      <Footer />
     </Box>
   );
 };
