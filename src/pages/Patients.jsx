@@ -11,7 +11,7 @@ const Patients = () => {
     queryFn: getPatients,
   });
   const columnDefs = [
-    { field: "patientID", headerName: "Patient ID", flex: 1 },
+    { field: "patientID", headerName: "Patient ID", flex: 1, filter: true },
     {
       field: "patientName",
       valueFormatter: (params) =>
@@ -20,12 +20,19 @@ const Patients = () => {
         }),
       headerName: "Patient Name",
       flex: 1,
+      filter: true,
     },
-    { field: "patientEmail", headerName: "Patient Email", flex: 1 },
+    {
+      field: "patientEmail",
+      headerName: "Patient Email",
+      flex: 1,
+      filter: true,
+    },
     {
       field: "clinicianAssignedId",
       headerName: "Clinician Assigned",
       flex: 1,
+      filter: true,
     },
     {
       field: "assignTo",
@@ -33,7 +40,7 @@ const Patients = () => {
       width: "118vw",
       cellRenderer: ReAssignButton,
     },
-    { field: "status", headerName: "Status", flex: 1 },
+    { field: "status", headerName: "Status", flex: 1, filter: true },
   ];
 
   return (
