@@ -3,13 +3,12 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { getEmployees } from "../services/employees";
 import { useQuery } from "@tanstack/react-query";
-
+import EmployeeButtonsRenderer from "../components/action_buttons/EmployeeButtonsRenderer";
 const Employees = () => {
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
-    queryFn: getEmployees,
+    queryFn: getEmployees
   });
-
   const columnDefs = [
     { field: "employeeType", headerName: "Employee Type", flex: 1 },
     {
@@ -19,7 +18,7 @@ const Employees = () => {
           return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
         }),
       headerName: "Clinician Name",
-      flex: 1,
+      flex: 1
     },
     { field: "clinicianEmailId", headerName: "Clinician Email", flex: 1 },
     { field: "assigned", headerName: "Assigned", flex: 1 },
@@ -27,9 +26,24 @@ const Employees = () => {
     { field: "completed", headerName: "Completed", flex: 1 },
     { field: "reOpen", headerName: "Re Open", flex: 1 },
     { field: "total", headerName: "Total", flex: 1 },
-    { field: "lastLogin", headerName: "Last Login", flex: 1 },
+    {
+      field: "lastLogin",
+      headerName: "Last Login",
+      flex: 1
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      headerStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center"
+      },
+      width: "310px",
+      cellRenderer: EmployeeButtonsRenderer
+    }
   ];
-
   return (
     <div>
       <h2>Employee Management</h2>
