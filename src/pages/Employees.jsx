@@ -7,10 +7,15 @@ import EmployeeButtonsRenderer from "../components/action_buttons/EmployeeButton
 const Employees = () => {
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
-    queryFn: getEmployees
+    queryFn: getEmployees,
   });
   const columnDefs = [
-    { field: "employeeType", headerName: "Employee Type", flex: 1 },
+    {
+      field: "employeeType",
+      headerName: "Employee Type",
+      flex: 1,
+      filter: true,
+    },
     {
       field: "clinicianName",
       valueFormatter: (params) =>
@@ -18,18 +23,25 @@ const Employees = () => {
           return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
         }),
       headerName: "Clinician Name",
-      flex: 1
+      flex: 1,
+      filter: true,
     },
-    { field: "clinicianEmailId", headerName: "Clinician Email", flex: 1 },
-    { field: "assigned", headerName: "Assigned", flex: 1 },
-    { field: "onGoing", headerName: "On going", flex: 1 },
-    { field: "completed", headerName: "Completed", flex: 1 },
-    { field: "reOpen", headerName: "Re Open", flex: 1 },
-    { field: "total", headerName: "Total", flex: 1 },
+    {
+      field: "clinicianEmailId",
+      headerName: "Clinician Email",
+      flex: 1,
+      filter: true,
+    },
+    { field: "assigned", headerName: "Assigned", flex: 1, filter: true },
+    { field: "onGoing", headerName: "On going", flex: 1, filter: true },
+    { field: "completed", headerName: "Completed", flex: 1, filter: true },
+    { field: "reOpen", headerName: "Re Open", flex: 1, filter: true },
+    { field: "total", headerName: "Total", flex: 1, filter: true },
     {
       field: "lastLogin",
       headerName: "Last Login",
-      flex: 1
+      flex: 1,
+      filter: true,
     },
     {
       field: "actions",
@@ -38,11 +50,11 @@ const Employees = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        textAlign: "center"
+        textAlign: "center",
       },
       width: "310px",
-      cellRenderer: EmployeeButtonsRenderer
-    }
+      cellRenderer: EmployeeButtonsRenderer,
+    },
   ];
   return (
     <div>
