@@ -78,7 +78,7 @@ function AddEmployee({ open, onClose }) {
                     type="reset"
                     variant="contained"
                     size="small"
-                    color="grey"
+                    color="inherit"
                   >
                     Cancel
                   </Button>
