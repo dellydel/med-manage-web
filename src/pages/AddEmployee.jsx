@@ -9,7 +9,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import Grid from "@mui/material/Grid2";
 function AddEmployee({ open, onClose }) {
   return (
@@ -79,7 +78,7 @@ function AddEmployee({ open, onClose }) {
                     type="reset"
                     variant="contained"
                     size="small"
-                    color={grey}
+                    color="grey"
                   >
                     Cancel
                   </Button>
