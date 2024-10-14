@@ -4,7 +4,11 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import { getEmployees } from "../services/employees";
 import { useQuery } from "@tanstack/react-query";
 import EmployeeButtonsRenderer from "../components/action_buttons/EmployeeButtonsRenderer";
+import { Button } from "@mui/material";
+import { useState } from "react";
+import AddEmployee from "./AddEmployee";
 const Employees = () => {
+  const [open, setOpen] = useState(false);
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
@@ -59,6 +63,10 @@ const Employees = () => {
   return (
     <div>
       <h2>Employee Management</h2>
+      <Button variant="outlined" sx={{ mb: 1 }} onClick={() => setOpen(true)}>
+        Add Employee
+      </Button>
+      <AddEmployee open={open} onClose={() => setOpen(false)} />
       {isPending && <div>loading...</div>}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
