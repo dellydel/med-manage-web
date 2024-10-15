@@ -55,7 +55,7 @@ function AddPatient({ open, onClose }) {
                   fullWidth
                   required
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid size={3} item>
                 Last Name
                 <TextField
@@ -65,7 +65,7 @@ function AddPatient({ open, onClose }) {
                   fullWidth
                   required
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid size={3} item>
                 Email
                 <TextField
@@ -75,7 +75,7 @@ function AddPatient({ open, onClose }) {
                   fullWidth
                   required
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid size={3} item>
                 Mobile
                 <TextField
@@ -144,7 +144,7 @@ function AddPatient({ open, onClose }) {
                   fullWidth
                   required
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid size={3} item>
                 Contact Last Name
                 <TextField
@@ -154,7 +154,7 @@ function AddPatient({ open, onClose }) {
                   fullWidth
                   required
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid size={3} item>
                 Relationship to Patient
                 <TextField
@@ -165,7 +165,7 @@ function AddPatient({ open, onClose }) {
                   fullWidth
                   required
                 />
-              </Grid>{" "}
+              </Grid>
               <Grid size={3} item>
                 Mobile No
                 <TextField
