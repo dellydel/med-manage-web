@@ -79,7 +79,7 @@ function AddPatient({ open, onClose }) {
               <Grid size={3} item>
                 Mobile
                 <TextField
-                  label="Mobile No"
+                  label="Phone Number"
                   type="number"
                   size="small"
                   fullWidth
