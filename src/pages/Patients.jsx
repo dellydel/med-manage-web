@@ -4,8 +4,11 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import ReAssignButton from "../components/ReAssignButton";
 import { useQuery } from "@tanstack/react-query";
 import { getPatients } from "../services/patients";
-
+import { Button } from "@mui/material";
+import { useState } from "react";
+import AddPatient from "./AddPatient";
 const Patients = () => {
+  const [open, setOpen] = useState(false);
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
     queryFn: getPatients,
@@ -42,11 +45,14 @@ const Patients = () => {
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
   ];
-
   return (
     <div>
       <h2>Patient Management</h2>
+      <Button variant="outlined" sx={{ mb: 1 }} onClick={() => setOpen(true)}>
+        Add Patient
+      </Button>
       {isPending && <div>loading...</div>}
+      <AddPatient open={open} onClose={() => setOpen(false)} />
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
           rowData={patients}
