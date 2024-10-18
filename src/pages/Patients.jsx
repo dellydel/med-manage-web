@@ -7,40 +7,51 @@ import { getPatients } from "../services/patients";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import AddPatient from "./AddPatient";
-
+import PatientsButtonsRenderer from "../components/action_buttons/PatientsButtonsRenderer";
 const Patients = () => {
   const [open, setOpen] = useState(false);
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
-    queryFn: getPatients,
+    queryFn: getPatients
   });
-
   const columnDefs = [
     { field: "patientId", hide: true },
     {
       field: "fullName",
       headerName: "Patient Name",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "email",
       headerName: "Patient Email",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "",
       headerName: "Clinician Assigned",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       headerName: "Assign To",
       width: "118vw",
-      cellRenderer: ReAssignButton,
+      cellRenderer: ReAssignButton
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
+    {
+      field: "actions",
+      headerName: "Actions",
+      headerStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center"
+      },
+      width: "310px",
+      cellRenderer: PatientsButtonsRenderer
+    }
   ];
   return (
     <div>
