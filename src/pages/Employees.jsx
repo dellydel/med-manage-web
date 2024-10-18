@@ -7,35 +7,38 @@ import EmployeeButtonsRenderer from "../components/action_buttons/EmployeeButton
 import { Button } from "@mui/material";
 import { useState } from "react";
 import AddEmployee from "./AddEmployee";
+
 const Employees = () => {
   const [open, setOpen] = useState(false);
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
   });
+
   const columnDefs = [
+    {
+      field: "employeeId",
+      hide: true,
+    },
+    {
+      field: "fullName",
+      headerName: "Employee Name",
+      flex: 1,
+      filter: true,
+    },
+    {
+      field: "email",
+      headerName: "Employee Email",
+      flex: 1,
+      filter: true,
+    },
     {
       field: "employeeType",
       headerName: "Employee Type",
       flex: 1,
       filter: true,
     },
-    {
-      field: "clinicianName",
-      valueFormatter: (params) =>
-        params.value.replace(/\w\S*/g, (t) => {
-          return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
-        }),
-      headerName: "Clinician Name",
-      flex: 1,
-      filter: true,
-    },
-    {
-      field: "clinicianEmailId",
-      headerName: "Clinician Email",
-      flex: 1,
-      filter: true,
-    },
+
     { field: "assigned", headerName: "Assigned", flex: 1, filter: true },
     { field: "onGoing", headerName: "On going", flex: 1, filter: true },
     { field: "completed", headerName: "Completed", flex: 1, filter: true },
@@ -60,6 +63,7 @@ const Employees = () => {
       cellRenderer: EmployeeButtonsRenderer,
     },
   ];
+
   return (
     <div>
       <h2>Employee Management</h2>
