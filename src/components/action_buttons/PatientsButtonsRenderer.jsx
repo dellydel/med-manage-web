@@ -3,18 +3,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-function PatientsButtonsRenderer() {
-  const buttonStyle = () => ({
+const PatientsButtonsRenderer = () => {
+  const buttonStyle = {
     textTransform: "none",
     color: "white",
     bgcolor: "red",
     height: 35
-  });
-  const iconStyle = () => ({
+  };
+  const iconStyle = {
     position: "center",
-    width: "120%",
-    height: "120%"
-  });
+    width: "80%",
+    height: "80%"
+  };
   return (
     <Box
       sx={{
@@ -25,26 +25,26 @@ function PatientsButtonsRenderer() {
       }}
     >
       <Button
-        sx={buttonStyle()}
+        sx={buttonStyle}
         variant="contained"
         startIcon={<VisibilityIcon sx={iconStyle} />}
       ></Button>
       <Button
-        sx={buttonStyle()}
+        sx={buttonStyle}
         variant="contained"
         startIcon={<NoteAltIcon sx={iconStyle} />}
       ></Button>
       <Button
-        sx={buttonStyle()}
+        sx={buttonStyle}
         variant="contained"
         startIcon={<DeleteIcon sx={iconStyle} />}
       ></Button>
       <Button
-        sx={buttonStyle()}
+        sx={buttonStyle}
         variant="contained"
         startIcon={<InventoryIcon sx={iconStyle} />}
       ></Button>
     </Box>
   );
-}
+};
 export default PatientsButtonsRenderer;
