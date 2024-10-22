@@ -36,9 +36,9 @@ function AddEmployee({ open, onClose }) {
   }
   const { mutate, isPending } = useMutation({
     mutationFn: addEmployee,
-    onSuccess: () => {
+    onSuccess: (data) => {
       setToastSeverity("sucess");
-      setToastMessage("New employee added successfully");
+      setToastMessage(`New employee ${data?.fullName} added successfully`);
       setOpenToast(true);
       queryClient.invalidateQueries({ queryKey: ["employees"] });
       handleReset();
