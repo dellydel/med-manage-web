@@ -19,20 +19,13 @@ function AddEmployee({ open, onClose }) {
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("");
   const queryClient = useQueryClient();
-  function handleClose() {
-    setOpenToast(false);
-  }
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
   function handleReset() {
     setFullName("");
     setEmail("");
     setUserType("");
-    setPassword("");
-    setPassword2("");
   }
   const { mutate, isPending } = useMutation({
     mutationFn: addEmployee,
@@ -52,7 +45,6 @@ function AddEmployee({ open, onClose }) {
   });
   function handleSubmit(event) {
     event.preventDefault();
-    if (password != password2) return;
     const newEmployee = {
       fullName,
       email,
@@ -133,26 +125,6 @@ function AddEmployee({ open, onClose }) {
                     <MenuItem value="Clinician">Clinician</MenuItem>
                   </Select>
                 </Grid>
-                {/* <Grid size={3} marginTop={1} align="right" item>
-                  Employee Password
-                </Grid>
-                <Grid size={9} item>
-                  <TextField
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid size={3} marginTop={1} align="right" item>
-                  Confirm Passord
-                </Grid>
-                <Grid size={9} item>
-                  <TextField type="password" size="small" fullWidth required />
-                </Grid> */}
                 <Grid size={12} item align="center" marginTop={1}>
                   <Button
                     type="reset"
@@ -180,7 +152,7 @@ function AddEmployee({ open, onClose }) {
         </Card>
         <Toast
           open={openToast}
-          closeToast={handleClose}
+          onClose={() => setOpenToast(false)}
           message={toastMessage}
           severity={toastSeverity}
         />

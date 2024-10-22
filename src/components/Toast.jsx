@@ -1,15 +1,15 @@
 import { Alert, Snackbar } from "@mui/material";
-function Toast({ open, closeToast, message, severity }) {
+function Toast({ open, onClose, message, severity }) {
   return (
     <div>
       <Snackbar
         open={open}
         autoHideDuration={6000}
-        onClose={closeToast}
+        onClose={onClose}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
-          onClose={closeToast}
+          onClose={onClose}
           severity={severity}
           variant="filled"
           sx={{ width: "100%" }}
