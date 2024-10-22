@@ -1,15 +1,12 @@
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 function Footer() {
-  const { user } = useAuth();
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         position: "relative",
-        marginTop: `${!user ? "32%" : "auto"}`,
         bottom: 0,
       }}
     >

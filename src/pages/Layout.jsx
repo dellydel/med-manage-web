@@ -22,7 +22,10 @@ const Layout = () => {
       <CssBaseline />
       <Navigation />
       {user && <MenuItem />}
-      <Box component="main" sx={{ flexGrow: 1, py: 3, pr: 3, pl: 33 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, py: 3, pr: 3, pl: 33, minHeight: "90vh" }}
+      >
         <Toolbar variant="tall" />
         <Outlet />
       </Box>
