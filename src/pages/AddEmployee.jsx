@@ -61,7 +61,7 @@ function AddEmployee({ open, onClose }) {
                     <MenuItem>Clinician</MenuItem>
                   </Select>
                 </Grid>
-                <Grid size={3} marginTop={1} align="right" item>
+                {/* <Grid size={3} marginTop={1} align="right" item>
                   Employee Password
                 </Grid>
                 <Grid size={9} item>
@@ -72,7 +72,7 @@ function AddEmployee({ open, onClose }) {
                 </Grid>
                 <Grid size={9} item>
                   <TextField type="password" size="small" fullWidth required />
-                </Grid>
+                </Grid> */}
                 <Grid size={12} item align="center" marginTop={1}>
                   <Button
                     type="reset"

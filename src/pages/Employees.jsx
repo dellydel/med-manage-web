@@ -53,12 +53,6 @@ const Employees = () => {
     {
       field: "actions",
       headerName: "Actions",
-      headerStyle: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-      },
       width: "310px",
       cellRenderer: EmployeeButtonsRenderer,
     },
