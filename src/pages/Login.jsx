@@ -17,7 +17,7 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [session, setSession] = useState(null);
   const [passwordUpdate, setPasswordUpdate] = useState(false);
-  const { setUser, loginUser, updatePassword } = useAuth();
+  const { setIsUserAuthenticated, loginUser, updatePassword } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -29,13 +29,8 @@ const Login = () => {
         setPasswordUpdate(true);
         setPassword("");
         setSession(response.data.session);
-      } else if (response.data.accessToken) {
-        setUser({
-          email: email,
-          access_token: response.data.accessToken,
-          id_token: response.data.idToken,
-          refresh_token: response.data.refreshToken,
-        });
+      } else if (response.data == "Login was successful.") {
+        setIsUserAuthenticated(true);
         navigate("/home");
       }
     } catch (err) {
@@ -48,15 +43,9 @@ const Login = () => {
     setError(null);
     try {
       const response = await updatePassword(email, password, session);
-      if (response.data.accessToken) {
+      if (response.data == "Login was successful.") {
         setPasswordUpdate(false);
         setSession(null);
-        setUser({
-          email: email,
-          access_token: response.data.accessToken,
-          id_token: response.data.idToken,
-          refresh_token: response.data.refreshToken,
-        });
         navigate("/home");
       }
     } catch (err) {

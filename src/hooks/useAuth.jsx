@@ -1,20 +1,34 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "./useLocalStorage";
-import { validateCredentials, changePassword } from "../services/auth";
+import {
+  validateCredentials,
+  changePassword,
+  refreshToken,
+} from "../services/auth";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useLocalStorage("user", null);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
   const navigate = useNavigate();
 
+  const refreshIdToken = async (token) => {
+    return await refreshToken(token);
+  };
+
   const loginUser = async (email, password) => {
-    return validateCredentials(email, password);
+    return await validateCredentials(email, password);
   };
 
   const logoutUser = () => {
-    setUser(null);
+    // TODO: Temporary workaround - remove cookies access from server
+    document.cookie =
+      "access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=localhost;";
+    document.cookie =
+      "id_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=localhost;";
+    document.cookie =
+      "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=localhost;";
+    setIsUserAuthenticated(false);
     navigate("/", { replace: true });
   };
 
@@ -24,13 +38,14 @@ export const AuthProvider = ({ children }) => {
 
   const value = useMemo(
     () => ({
-      user,
-      setUser,
+      isUserAuthenticated,
+      setIsUserAuthenticated,
       loginUser,
       logoutUser,
       updatePassword,
+      refreshIdToken,
     }),
-    [user]
+    [isUserAuthenticated, logoutUser]
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

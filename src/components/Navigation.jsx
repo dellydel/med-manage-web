@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import { useAuth } from "../hooks/useAuth";
 
 const Navigation = () => {
-  const { logoutUser, user } = useAuth();
+  const { logoutUser, isUserAuthenticated } = useAuth();
   return (
     <AppBar
       position="fixed"
@@ -11,7 +11,7 @@ const Navigation = () => {
     >
       <Toolbar variant="tall">
         <Logo />
-        {user && (
+        {isUserAuthenticated && (
           <>
             <Box sx={{ flexGrow: 1 }} />
             <Typography variant="body1" sx={{ mr: 5 }}>

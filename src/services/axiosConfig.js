@@ -2,13 +2,13 @@ import axios from "axios";
 
 export const api = axios.create({
   baseURL: `${import.meta.env.VITE_API_GATEWAY_BASE_URL}`,
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
   (config) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      const token = user.id_token;
+    const token = getCookie("token");
+    if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -17,3 +17,9 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+};
