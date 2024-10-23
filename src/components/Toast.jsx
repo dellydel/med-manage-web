@@ -1,5 +1,5 @@
 import { Alert, Snackbar } from "@mui/material";
-function Toast({ open, onClose, message, severity }) {
+const Toast = ({ open, onClose, message, severity }) => {
   return (
     <div>
       <Snackbar
@@ -19,5 +19,5 @@ function Toast({ open, onClose, message, severity }) {
       </Snackbar>
     </div>
   );
-}
+};
 export default Toast;
