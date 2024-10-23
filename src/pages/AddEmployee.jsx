@@ -21,21 +21,22 @@ function AddEmployee({ open, onClose }) {
   const queryClient = useQueryClient();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [userType, setUserType] = useState("");
+  const [employeeType, setEmployeeType] = useState("");
   function handleReset() {
     setFullName("");
     setEmail("");
-    setUserType("");
+    setEmployeeType("");
   }
   const { mutate, isPending } = useMutation({
     mutationFn: addEmployee,
     onSuccess: (data) => {
-      setToastSeverity("sucess");
-      setToastMessage(`New employee ${data?.fullName} added successfully`);
+      setToastSeverity("success");
+      setToastMessage(data);
       setOpenToast(true);
       queryClient.invalidateQueries({ queryKey: ["employees"] });
       handleReset();
-      onClose();
+      const timeout = setTimeout(() => onClose(), 3000);
+      return () => clearTimeout(timeout);
     },
     onError: (err) => {
       setToastSeverity("error");
@@ -48,7 +49,7 @@ function AddEmployee({ open, onClose }) {
     const newEmployee = {
       fullName,
       email,
-      userType,
+      employeeType,
     };
     mutate(newEmployee);
   }
@@ -115,8 +116,8 @@ function AddEmployee({ open, onClose }) {
                 <Grid size={9} item>
                   <Select
                     id="userType"
-                    value={userType}
-                    onChange={(e) => setUserType(e.target.value)}
+                    value={employeeType}
+                    onChange={(e) => setEmployeeType(e.target.value)}
                     size="small"
                     fullWidth
                     required
