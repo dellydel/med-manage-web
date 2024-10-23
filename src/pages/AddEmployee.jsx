@@ -57,28 +57,25 @@ function AddEmployee({ open, onClose }) {
     <Modal open={open} onClose={onClose}>
       <>
         <Card style={{ maxWidth: "45%", margin: "15% auto" }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            align="center"
-            bgcolor="#1976d2"
-            padding={2}
-            color="#fff"
-          >
-            <Close
-              onClick={onClose}
-              style={{
-                background: "#fff",
-                boxShadow: 3,
-                "&.hover": { boxShadow: 8 },
-                color: "#000",
-                borderRadius: 28,
-                position: "fixed",
-                right: 440,
-              }}
-            />
-            Add Employee
-          </Typography>
+          <Grid container bgcolor="#1976d2" color="#fff" padding={2}>
+            <Grid size={10}>
+              <Typography variant="h5" align="center" marginLeft={12}>
+                Add Employee
+              </Typography>
+            </Grid>
+            <Grid size={2}>
+              <Typography align="right">
+                <Close
+                  onClick={onClose}
+                  sx={{
+                    boxShadow: 3,
+                    "&.hover": { boxShadow: 8 },
+                    borderRadius: 28,
+                  }}
+                />
+              </Typography>
+            </Grid>
+          </Grid>
           <CardContent>
             <form onSubmit={handleSubmit}>
               <Grid container spacing={1}>
