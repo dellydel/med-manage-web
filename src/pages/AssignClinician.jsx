@@ -67,7 +67,7 @@ const AssignClinician = ({ open, onClose }) => {
                 <Grid size={12} item align="center" marginTop={1}>
                   <Button
                     type="reset"
-                    variant="contained"
+                    variant="outlined"
                     size="small"
                     color="inherit"
                     onClick={handleReset}
@@ -82,7 +82,7 @@ const AssignClinician = ({ open, onClose }) => {
                     color="success"
                     disabled={isPending}
                   >
-                    Add
+                    Assign
                   </Button>
                 </Grid>
               </Grid>
