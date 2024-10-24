@@ -1,7 +1,7 @@
 import { Button, Box } from "@mui/material";
 import { Groups2, AirlineSeatFlatAngledTwoTone } from "@mui/icons-material";
 
-const Home = () => {
+const Admin = () => {
   return (
     <Box
       sx={{
@@ -78,4 +78,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Admin;
