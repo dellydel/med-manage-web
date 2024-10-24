@@ -28,7 +28,7 @@ const Layout = () => {
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <CssBaseline />
       <Navigation />
-      {user && <MenuItem />}
+      {user && !isJwtExpired(user.id_token) && <MenuItem />}
       <Box
         component="main"
         sx={{ flexGrow: 1, py: 3, pr: 3, pl: 33, minHeight: "90vh" }}
