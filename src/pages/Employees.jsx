@@ -7,9 +7,8 @@ import EmployeeButtonsRenderer from "../components/action_buttons/EmployeeButton
 import { Button } from "@mui/material";
 import { useState } from "react";
 import AddEmployee from "./AddEmployee";
-import { useAuth } from "../hooks/useAuth";
+
 const Employees = () => {
-  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
@@ -59,11 +58,9 @@ const Employees = () => {
   return (
     <div>
       <h2>Employee Management</h2>
-      {user.email === "testuser@test.com" && (
-        <Button variant="outlined" sx={{ mb: 1 }} onClick={() => setOpen(true)}>
-          Add Employee
-        </Button>
-      )}
+      <Button variant="outlined" sx={{ mb: 1 }} onClick={() => setOpen(true)}>
+        Add Employee
+      </Button>
       <AddEmployee open={open} onClose={() => setOpen(false)} />
       {isPending && <div>loading...</div>}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
