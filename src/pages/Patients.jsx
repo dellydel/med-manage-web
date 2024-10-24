@@ -8,8 +8,10 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import AddPatient from "./AddPatient";
 import PatientsButtonsRenderer from "../components/action_buttons/PatientsButtonsRenderer";
+import AssignClinician from "./AssignClinician";
 const Patients = () => {
   const [open, setOpen] = useState(false);
+  const [openAssignTo, setOpenAssignTo] = useState(false);
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
     queryFn: getPatients,
@@ -40,6 +42,9 @@ const Patients = () => {
       headerName: "Assign To",
       width: "118vw",
       cellRenderer: ReAssignButton,
+      cellRendererParams: {
+        onClick: () => setOpenAssignTo(true),
+      },
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
     {
@@ -56,7 +61,13 @@ const Patients = () => {
         Add Patient
       </Button>
       {isPending && <div>loading...</div>}
-      <AddPatient open={open} onClose={() => setOpen(false)} />
+      {open && <AddPatient open={open} onClose={() => setOpen(false)} />}
+      {openAssignTo && (
+        <AssignClinician
+          open={openAssignTo}
+          onClose={() => setOpenAssignTo(false)}
+        />
+      )}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
           rowData={patients}
