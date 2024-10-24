@@ -16,7 +16,7 @@ const AssignClinician = ({ open, onClose }) => {
   const [clinician, setClinician] = useState("");
   const { isPending, data: clinicians } = useQuery({
     queryKey: ["clinicians"],
-    queryFn: getEmployeesByType("cinician"),
+    queryFn: () => getEmployeesByType("clinician"),
   });
   const handleReset = () => {
     setClinician("");
@@ -45,7 +45,7 @@ const AssignClinician = ({ open, onClose }) => {
             </Grid>
           </Grid>
           <CardContent>
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
               <Grid container spacing={1}>
                 <Grid size={3} marginTop={1} align="right" item>
                   Clinicians
@@ -59,9 +59,11 @@ const AssignClinician = ({ open, onClose }) => {
                     fullWidth
                     required
                   >
-                    {clinicians?.map((p) => {
-                      <MenuItem value={p?.employeeId}>{p?.fullName}</MenuItem>;
-                    })}
+                    {clinicians?.map((p) => (
+                      <MenuItem value={p?.employeeId} key={p?.employeeId}>
+                        {p?.fullName}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </Grid>
                 <Grid size={12} item align="center" marginTop={1}>
