@@ -9,23 +9,25 @@ const Home = () => {
         flexWrap: "wrap",
         gap: 6,
         height: "65vh",
-
         justifyContent: "center",
         alignContent: "center",
       }}
     >
       <Button
         sx={{
-          height: "5rem",
-          width: "15rem",
+          fontSize: "18px",
+          height: "100px",
+          width: "320px",
           textTransform: "none",
-
           bgcolor: "white",
+          transition: "all 0s ease-in-out",
           color: "#000",
           "&:hover": {
-            bgcolor: "#1982c4",
+            bgcolor: "#1976d2",
             color: "white",
-            fontSize: "1.2rem",
+            height: "110px",
+            width: "340px",
+            fontSize: "22px",
           },
         }}
         size="large"
@@ -36,16 +38,19 @@ const Home = () => {
       </Button>
       <Button
         sx={{
-          height: "5rem",
-          width: "15rem",
+          height: "100px",
+          width: "320px",
           textTransform: "none",
-
           bgcolor: "white",
+          fontSize: "18px",
+          transition: "all 0s ease-in-out",
           color: "#000",
           "&:hover": {
-            bgcolor: "#1982c4",
+            bgcolor: "#1976d2",
             color: "white",
-            fontSize: "1.2rem",
+            fontSize: "22px",
+            height: "110px",
+            width: "340px",
           },
         }}
         size="large"
@@ -56,16 +61,19 @@ const Home = () => {
       </Button>
       <Button
         sx={{
-          height: "5rem",
-          width: "15rem",
+          fontSize: "18px",
           textTransform: "none",
-
+          height: "100px",
+          width: "320px",
           bgcolor: "white",
+          transition: "all 0s ease-in-out",
           color: "#000",
           "&:hover": {
-            bgcolor: "#1982c4",
+            bgcolor: "#1976d2",
             color: "white",
-            fontSize: "1.2rem",
+            fontSize: "22px",
+            height: "110px",
+            width: "340px",
           },
         }}
         size="large"
