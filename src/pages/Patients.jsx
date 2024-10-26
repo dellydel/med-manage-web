@@ -8,50 +8,51 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import AddPatient from "./AddPatient";
 import PatientsButtonsRenderer from "../components/action_buttons/PatientsButtonsRenderer";
+import AssignClinician from "./AssignClinician";
 const Patients = () => {
   const [open, setOpen] = useState(false);
+  const [openAssignTo, setOpenAssignTo] = useState(false);
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
-    queryFn: getPatients
+    queryFn: getPatients,
   });
   const columnDefs = [
     { field: "patientId", hide: true },
     {
-      field: "fullName",
+      valueGetter: (params) => {
+        return params.data.firstName + " " + params.data.lastName;
+      },
       headerName: "Patient Name",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "email",
       headerName: "Patient Email",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "",
       headerName: "Clinician Assigned",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       headerName: "Assign To",
       width: "118vw",
-      cellRenderer: ReAssignButton
+      cellRenderer: ReAssignButton,
+      cellRendererParams: {
+        onClick: () => setOpenAssignTo(true),
+      },
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
     {
       field: "actions",
       headerName: "Actions",
-      headerStyle: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center"
-      },
       width: "310px",
-      cellRenderer: PatientsButtonsRenderer
-    }
+      cellRenderer: PatientsButtonsRenderer,
+    },
   ];
   return (
     <div>
@@ -60,7 +61,13 @@ const Patients = () => {
         Add Patient
       </Button>
       {isPending && <div>loading...</div>}
-      <AddPatient open={open} onClose={() => setOpen(false)} />
+      {open && <AddPatient open={open} onClose={() => setOpen(false)} />}
+      {openAssignTo && (
+        <AssignClinician
+          open={openAssignTo}
+          onClose={() => setOpenAssignTo(false)}
+        />
+      )}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
           rowData={patients}

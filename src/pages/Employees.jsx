@@ -14,7 +14,6 @@ const Employees = () => {
     queryKey: ["employees"],
     queryFn: getEmployees,
   });
-
   const columnDefs = [
     {
       field: "employeeId",
@@ -38,7 +37,6 @@ const Employees = () => {
       flex: 1,
       filter: true,
     },
-
     { field: "assigned", headerName: "Assigned", flex: 1, filter: true },
     { field: "onGoing", headerName: "On going", flex: 1, filter: true },
     { field: "completed", headerName: "Completed", flex: 1, filter: true },
@@ -53,17 +51,10 @@ const Employees = () => {
     {
       field: "actions",
       headerName: "Actions",
-      headerStyle: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-      },
       width: "310px",
       cellRenderer: EmployeeButtonsRenderer,
     },
   ];
-
   return (
     <div>
       <h2>Employee Management</h2>

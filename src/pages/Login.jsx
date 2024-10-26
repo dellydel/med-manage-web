@@ -36,7 +36,7 @@ const Login = () => {
           id_token: response.data.idToken,
           refresh_token: response.data.refreshToken,
         });
-        navigate("/home");
+        navigate("/");
       }
     } catch (err) {
       setError(err.response.data);
@@ -57,7 +57,7 @@ const Login = () => {
           id_token: response.data.idToken,
           refresh_token: response.data.refreshToken,
         });
-        navigate("/home");
+        navigate("/");
       }
     } catch (err) {
       setError(err.response.data);

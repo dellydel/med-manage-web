@@ -10,68 +10,118 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { addEmployee } from "../services/employees";
+import Toast from "../components/Toast";
 function AddEmployee({ open, onClose }) {
+  const [openToast, setOpenToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastSeverity, setToastSeverity] = useState("");
+  const queryClient = useQueryClient();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [employeeType, setEmployeeType] = useState("");
+  function handleReset() {
+    setFullName("");
+    setEmail("");
+    setEmployeeType("");
+  }
+  const { mutate, isPending } = useMutation({
+    mutationFn: addEmployee,
+    onSuccess: (data) => {
+      setToastSeverity("success");
+      setToastMessage(data);
+      setOpenToast(true);
+      queryClient.invalidateQueries({ queryKey: ["employees"] });
+      handleReset();
+      const timeout = setTimeout(() => onClose(), 3000);
+      return () => clearTimeout(timeout);
+    },
+    onError: (err) => {
+      setToastSeverity("error");
+      setToastMessage(`Employee could not be added due to:  ${err.message}`);
+      setOpenToast(true);
+    },
+  });
+  function handleSubmit(event) {
+    event.preventDefault();
+    const newEmployee = {
+      fullName,
+      email,
+      employeeType,
+    };
+    mutate(newEmployee);
+  }
   return (
     <Modal open={open} onClose={onClose}>
       <>
         <Card style={{ maxWidth: "45%", margin: "15% auto" }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            align="center"
-            bgcolor="#1976d2"
-            padding={2}
-            color="#fff"
-          >
-            <Close
-              onClick={onClose}
-              style={{
-                background: "#fff",
-                boxShadow: 3,
-                "&.hover": { boxShadow: 8 },
-                color: "#000",
-                borderRadius: 28,
-                position: "fixed",
-                right: 440,
-              }}
-            />
-            Add Employee
-          </Typography>
+          <Grid container bgcolor="#1976d2" color="#fff" padding={2}>
+            <Grid size={10}>
+              <Typography variant="h5" align="center" marginLeft={12}>
+                Add Employee
+              </Typography>
+            </Grid>
+            <Grid size={2}>
+              <Typography align="right">
+                <Close
+                  onClick={onClose}
+                  sx={{
+                    boxShadow: 3,
+                    "&.hover": { boxShadow: 8 },
+                    borderRadius: 28,
+                  }}
+                />
+              </Typography>
+            </Grid>
+          </Grid>
           <CardContent>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Grid container spacing={1}>
                 <Grid size={3} marginTop={1} align="right" item>
                   Employee Name
                 </Grid>
                 <Grid size={9} item>
-                  <TextField type="text" size="small" fullWidth required />
+                  <TextField
+                    type="text"
+                    id="fullName"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    size="small"
+                    fullWidth
+                    required
+                  />
                 </Grid>
                 <Grid size={3} marginTop={1} align="right" item>
                   Employee Email
                 </Grid>
                 <Grid size={9} item>
-                  <TextField type="email" size="small" fullWidth required />
+                  <TextField
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    size="small"
+                    fullWidth
+                    required
+                  />
                 </Grid>
                 <Grid size={3} marginTop={1} align="right" item>
                   Employee Type
                 </Grid>
                 <Grid size={9} item>
-                  <Select size="small" fullWidth>
-                    <MenuItem>Care giver</MenuItem>
-                    <MenuItem>Clinician</MenuItem>
+                  <Select
+                    id="userType"
+                    value={employeeType}
+                    onChange={(e) => setEmployeeType(e.target.value)}
+                    size="small"
+                    fullWidth
+                    required
+                  >
+                    <MenuItem value="Care giver">Care giver</MenuItem>
+                    <MenuItem value="Clinician">Clinician</MenuItem>
                   </Select>
-                </Grid>
-                <Grid size={3} marginTop={1} align="right" item>
-                  Employee Password
-                </Grid>
-                <Grid size={9} item>
-                  <TextField type="password" size="small" fullWidth required />
-                </Grid>
-                <Grid size={3} marginTop={1} align="right" item>
-                  Confirm Passord
-                </Grid>
-                <Grid size={9} item>
-                  <TextField type="password" size="small" fullWidth required />
                 </Grid>
                 <Grid size={12} item align="center" marginTop={1}>
                   <Button
@@ -79,6 +129,7 @@ function AddEmployee({ open, onClose }) {
                     variant="contained"
                     size="small"
                     color="inherit"
+                    onClick={handleReset}
                   >
                     Cancel
                   </Button>
@@ -88,6 +139,7 @@ function AddEmployee({ open, onClose }) {
                     variant="contained"
                     size="small"
                     color="success"
+                    disabled={isPending}
                   >
                     Add
                   </Button>
@@ -96,6 +148,12 @@ function AddEmployee({ open, onClose }) {
             </form>
           </CardContent>
         </Card>
+        <Toast
+          open={openToast}
+          onClose={() => setOpenToast(false)}
+          message={toastMessage}
+          severity={toastSeverity}
+        />
       </>
     </Modal>
   );
