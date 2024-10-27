@@ -7,25 +7,30 @@ const Admin = () => {
       sx={{
         display: "flex",
         flexWrap: "wrap",
-        gap: 6,
+        gap: 2,
         height: "65vh",
-
         justifyContent: "center",
         alignContent: "center",
+        alignItems: "center",
       }}
     >
       <Button
         sx={{
-          height: "5rem",
-          width: "15rem",
+          fontSize: "18px",
+          height: "150px",
+          width: "340px",
+          padding: "64px 32px",
           textTransform: "none",
-
-          bgcolor: "white",
+          bgcolor: "primary",
+          transition: "all 0s ease-in-out",
           color: "#000",
           "&:hover": {
-            bgcolor: "#1982c4",
+            bgcolor: "primary",
             color: "white",
-            fontSize: "1.2rem",
+            height: "160px",
+            width: "350px",
+            fontSize: "20px",
+            padding: "69px 37px",
           },
         }}
         size="large"
@@ -36,16 +41,21 @@ const Admin = () => {
       </Button>
       <Button
         sx={{
-          height: "5rem",
-          width: "15rem",
+          height: "150px",
+          width: "340px",
+          padding: "64px 32px",
           textTransform: "none",
-
-          bgcolor: "white",
+          bgcolor: "primary",
+          fontSize: "18px",
+          transition: "all 0s ease-in-out",
           color: "#000",
           "&:hover": {
-            bgcolor: "#1982c4",
+            bgcolor: "primary",
             color: "white",
-            fontSize: "1.2rem",
+            fontSize: "20px",
+            height: "160px",
+            width: "350px",
+            padding: "69px 37px",
           },
         }}
         size="large"
@@ -56,16 +66,21 @@ const Admin = () => {
       </Button>
       <Button
         sx={{
-          height: "5rem",
-          width: "15rem",
+          fontSize: "18px",
           textTransform: "none",
-
-          bgcolor: "white",
+          height: "150px",
+          width: "340px",
+          padding: "64px 32px",
+          bgcolor: "primary",
+          transition: "all 0s ease-in-out",
           color: "#000",
           "&:hover": {
-            bgcolor: "#1982c4",
+            bgcolor: "primary",
             color: "white",
-            fontSize: "1.2rem",
+            padding: "69px 37px",
+            fontSize: "20px",
+            height: "160px",
+            width: "350px",
           },
         }}
         size="large"
