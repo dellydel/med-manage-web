@@ -3,17 +3,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useTheme } from "@mui/material/styles";
 const PatientsButtonsRenderer = () => {
+  const theme = useTheme();
   const buttonStyle = {
     textTransform: "none",
     color: "white",
-    bgcolor: "red",
-    height: 35
+    bgcolor: theme.palette.error.main
   };
   const iconStyle = {
-    position: "center",
-    width: "80%",
-    height: "80%"
+    width: "100%",
+    height: "100%",
+    ml: 1,
+    mr: 1
   };
   return (
     <Box

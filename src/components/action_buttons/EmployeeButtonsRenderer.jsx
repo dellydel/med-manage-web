@@ -1,51 +1,43 @@
 import { Button, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import { useTheme } from "@mui/material/styles";
 function EmployeeButtonsRenderer() {
+  const theme = useTheme();
+  const buttonStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+    gap: 1,
+    textTransform: "none",
+    color: "white",
+    bgcolor: theme.palette.error.main
+  };
+  const iconStyle = {
+    ml: 1,
+    mr: 1
+  };
   return (
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-evenly",
-        alignItems: "center"
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 1
       }}
     >
       <Button
-        startIcon={<NoteAltIcon />}
+        sx={buttonStyle}
         variant="contained"
-        size="large"
-        sx={{
-          textTransform: "none",
-          color: "white",
-          bgcolor: "red",
-          height: 35
-        }}
+        startIcon={<NoteAltIcon sx={iconStyle} />}
       ></Button>
-      <Button
-        variant="contained"
-        size="large"
-        sx={{
-          py: 0,
-          px: 1,
-          textTransform: "none",
-          color: "white",
-          bgcolor: "red",
-          height: 35
-        }}
-      >
+      <Button sx={buttonStyle} variant="contained" fullWidth>
         Reset Password
       </Button>
       <Button
-        startIcon={<DeleteIcon />}
+        sx={buttonStyle}
         variant="contained"
-        sx={{
-          py: 0,
-          px: 0,
-          textTransform: "none",
-          color: "white",
-          bgcolor: "red",
-          height: 35
-        }}
+        startIcon={<DeleteIcon sx={iconStyle} />}
       ></Button>
     </Box>
   );
