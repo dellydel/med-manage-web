@@ -1,16 +1,14 @@
-name: Deploy Front End - Development
+name: Deploy Front End - QA (Manual)
 
 on:
-  pull_request_review:
-    types: [submitted]
+  workflow_dispatch:
 
 jobs:
   Deploy:
-    if: github.event.review.state == 'approved' && github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     environment:
-      name: development
-      url: https://medmanagedev.nextbyteweb.com
+      name: qa
+      url: https://medmanageqa.nextbyteweb.com
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -29,4 +27,4 @@ jobs:
           aws-secret-access-key: ${{  secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://medmanagedev.nextbyteweb.com
+        run: aws s3 sync ./dist s3://medmanageqa.nextbyteweb.com
