@@ -15,33 +15,29 @@ import { useState } from "react";
 import Toast from "../components/Toast";
 const AddPatient = ({ open, onClose }) => {
   const { register, handleSubmit, reset } = useForm();
-  const [openToast, setOpenToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastSeverity, setToastSeverity] = useState("");
+  const [toastData, setToastData] = useState({
+    openToast: false,
+    toastMessage: "",
+    toastSeverity: ""
+  });
+  const updateToastData = (key, value) => {
+    setToastData((prevData) => ({ ...prevData, [key]: value }));
+  };
   const queryClient = useQueryClient();
-  function handleReset() {
-    reset();
-  }
   const { mutate, isPending } = useMutation({
     mutationFn: addPatient,
-    onError: (error) => {
-      setToastSeverity("error");
-      setToastMessage(`${error.message}`);
-      setOpenToast(true);
-    },
     onSuccess: (data) => {
-      setToastSeverity("success");
-      setToastMessage(data);
-      setOpenToast(true);
-      handleReset();
-      const timeout = setTimeout(() => onClose(), 3000);
-      return () => clearTimeout(timeout);
+      updateToastData("toastSeverity", "success");
+      updateToastData("toastMessage", data);
+      updateToastData("openToast", true);
+      reset();
+      handleCloseForm();
     },
     onSettled: async (_, error) => {
       if (error) {
-        setToastSeverity("error");
-        setToastMessage(`${error.message}`);
-        setOpenToast(true);
+        updateToastData("toastSeverity", "error");
+        updateToastData("toastMessage", `${error.message}`);
+        updateToastData("openToast", true);
       } else {
         await queryClient.invalidateQueries({ queryKey: ["patients"] });
       }
@@ -49,6 +45,10 @@ const AddPatient = ({ open, onClose }) => {
   });
   const onSubmit = (data) => {
     mutate(data);
+  };
+  const handleCloseForm = () => {
+    const timeout = setTimeout(() => onClose(), 3000);
+    return () => clearTimeout(timeout);
   };
   return (
     <Modal open={open} onClose={onClose}>
@@ -295,10 +295,10 @@ const AddPatient = ({ open, onClose }) => {
           </CardContent>
         </Card>
         <Toast
-          open={openToast}
+          open={toastData.openToast}
           onClose={() => setOpenToast(false)}
-          severity={toastSeverity}
-          message={toastMessage}
+          severity={toastData.toastSeverity}
+          message={toastData.toastMessage}
         />
       </>
     </Modal>
