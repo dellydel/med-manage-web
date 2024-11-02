@@ -20,24 +20,25 @@ const AddPatient = ({ open, onClose }) => {
     toastMessage: "",
     toastSeverity: ""
   });
-  const updateToastData = (key, value) => {
-    setToastData((prevData) => ({ ...prevData, [key]: value }));
-  };
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: addPatient,
     onSuccess: (data) => {
-      updateToastData("toastSeverity", "success");
-      updateToastData("toastMessage", data);
-      updateToastData("openToast", true);
+      setToastData({
+        toastSeverity: "success",
+        toastMessage: data,
+        openToast: true
+      });
       reset();
       handleCloseForm();
     },
     onSettled: async (_, error) => {
       if (error) {
-        updateToastData("toastSeverity", "error");
-        updateToastData("toastMessage", `${error.message}`);
-        updateToastData("openToast", true);
+        setToastData({
+          toastSeverity: "error",
+          toastMessage: `${error.message}`,
+          openToast: true
+        });
       } else {
         await queryClient.invalidateQueries({ queryKey: ["patients"] });
       }
