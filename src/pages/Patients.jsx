@@ -14,7 +14,7 @@ const Patients = () => {
   const [openAssignTo, setOpenAssignTo] = useState(false);
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
-    queryFn: getPatients,
+    queryFn: getPatients
   });
   const columnDefs = [
     { field: "patientId", hide: true },
@@ -24,35 +24,35 @@ const Patients = () => {
       },
       headerName: "Patient Name",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "email",
       headerName: "Patient Email",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "",
       headerName: "Clinician Assigned",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       headerName: "Assign To",
       width: "118vw",
       cellRenderer: ReAssignButton,
       cellRendererParams: {
-        onClick: () => setOpenAssignTo(true),
-      },
+        onClick: () => setOpenAssignTo(true)
+      }
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
     {
       field: "actions",
       headerName: "Actions",
       width: "310px",
-      cellRenderer: PatientsButtonsRenderer,
-    },
+      cellRenderer: PatientsButtonsRenderer
+    }
   ];
   return (
     <div>
