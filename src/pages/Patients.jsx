@@ -17,6 +17,7 @@ const Patients = () => {
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
     queryFn: getPatients
+    queryFn: getPatients
   });
   const [toastData, setToastData] = useState({
     openToast: false,
@@ -34,11 +35,13 @@ const Patients = () => {
       headerName: "Patient Name",
       flex: 1,
       filter: true
+      filter: true
     },
     {
       field: "email",
       headerName: "Patient Email",
       flex: 1,
+      filter: true
       filter: true
     },
     {
@@ -46,12 +49,15 @@ const Patients = () => {
       headerName: "Clinician Assigned",
       flex: 1,
       filter: true
+      filter: true
     },
     {
       headerName: "Assign To",
       width: "118vw",
       cellRenderer: ReAssignButton,
       cellRendererParams: {
+        onClick: () => setOpenAssignTo(true)
+      }
         onClick: () => setOpenAssignTo(true)
       }
     },

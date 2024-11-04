@@ -12,30 +12,30 @@ const Employees = () => {
   const [open, setOpen] = useState(false);
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
-    queryFn: getEmployees,
+    queryFn: getEmployees
   });
   const columnDefs = [
     {
       field: "employeeId",
-      hide: true,
+      hide: true
     },
     {
       field: "fullName",
       headerName: "Employee Name",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "email",
       headerName: "Employee Email",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "employeeType",
       headerName: "Employee Type",
       flex: 1,
-      filter: true,
+      filter: true
     },
     { field: "assigned", headerName: "Assigned", flex: 1, filter: true },
     { field: "onGoing", headerName: "On going", flex: 1, filter: true },
@@ -46,14 +46,14 @@ const Employees = () => {
       field: "lastLogin",
       headerName: "Last Login",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "actions",
       headerName: "Actions",
       width: "310px",
-      cellRenderer: EmployeeButtonsRenderer,
-    },
+      cellRenderer: EmployeeButtonsRenderer
+    }
   ];
   return (
     <div>
