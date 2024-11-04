@@ -9,7 +9,7 @@ function ReAssignButton({ onClick }) {
         sx={{
           py: 0,
           px: 1,
-          textTransform: "none",
+          textTransform: "none"
         }}
       >
         Re Assign
