@@ -72,6 +72,7 @@ const Patients = () => {
   ];
   const handleClose = () => {
     setToastData({
+      ...toastData,
       openToast: false
     });
   };
