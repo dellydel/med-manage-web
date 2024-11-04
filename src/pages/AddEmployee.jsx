@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addEmployee } from "../services/employees";
 import Toast from "../components/Toast";
-function AddEmployee({ open, onClose }) {
+function AddEmployee({ open, onClose, action, employee = null }) {
   const [openToast, setOpenToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastSeverity, setToastSeverity] = useState("");
@@ -22,6 +22,13 @@ function AddEmployee({ open, onClose }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [employeeType, setEmployeeType] = useState("");
+  useEffect(() => {
+    if (employee) {
+      setFullName(employee.fullName);
+      setEmail(employee.email);
+      setEmployeeType(employee.employeeType);
+    }
+  }, []);
   function handleReset() {
     setFullName("");
     setEmail("");
@@ -40,18 +47,30 @@ function AddEmployee({ open, onClose }) {
     },
     onError: (err) => {
       setToastSeverity("error");
-      setToastMessage(`Employee could not be added due to:  ${err.message}`);
+      setToastMessage(
+        `Employee data could not be saved due to:  ${err.message}`
+      );
       setOpenToast(true);
     },
   });
   function handleSubmit(event) {
     event.preventDefault();
-    const newEmployee = {
-      fullName,
-      email,
-      employeeType,
-    };
-    mutate(newEmployee);
+    if (employee === null) {
+      const newEmployee = {
+        fullName,
+        email,
+        employeeType,
+      };
+      mutate(newEmployee);
+    } else {
+      const newEmployee = {
+        fullName,
+        email,
+        employeeType,
+        employeeId: employee.employeeId,
+      };
+      mutate(newEmployee);
+    }
   }
   return (
     <Modal open={open} onClose={onClose}>
@@ -60,7 +79,7 @@ function AddEmployee({ open, onClose }) {
           <Grid container bgcolor="#1976d2" color="#fff" padding={2}>
             <Grid size={10}>
               <Typography variant="h5" align="center" marginLeft={12}>
-                Add Employee
+                {action} Employee
               </Typography>
             </Grid>
             <Grid size={2}>
@@ -141,7 +160,7 @@ function AddEmployee({ open, onClose }) {
                     color="success"
                     disabled={isPending}
                   >
-                    Add
+                    Save
                   </Button>
                 </Grid>
               </Grid>

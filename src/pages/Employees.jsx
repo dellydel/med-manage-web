@@ -7,35 +7,36 @@ import EmployeeButtonsRenderer from "../components/action_buttons/EmployeeButton
 import { Button } from "@mui/material";
 import { useState } from "react";
 import AddEmployee from "./AddEmployee";
-
 const Employees = () => {
   const [open, setOpen] = useState(false);
+  const [action, setAction] = useState("");
+  const [employee, setEmployee] = useState(null);
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
-    queryFn: getEmployees
+    queryFn: getEmployees,
   });
   const columnDefs = [
     {
       field: "employeeId",
-      hide: true
+      hide: true,
     },
     {
       field: "fullName",
       headerName: "Employee Name",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "email",
       headerName: "Employee Email",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "employeeType",
       headerName: "Employee Type",
       flex: 1,
-      filter: true
+      filter: true,
     },
     { field: "assigned", headerName: "Assigned", flex: 1, filter: true },
     { field: "onGoing", headerName: "On going", flex: 1, filter: true },
@@ -46,22 +47,41 @@ const Employees = () => {
       field: "lastLogin",
       headerName: "Last Login",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "actions",
       headerName: "Actions",
       width: "310px",
-      cellRenderer: EmployeeButtonsRenderer
-    }
+      cellRenderer: EmployeeButtonsRenderer,
+      cellRendererParams: { setAction, setOpen, setEmployee },
+    },
   ];
   return (
     <div>
       <h2>Employee Management</h2>
-      <Button variant="outlined" sx={{ mb: 1 }} onClick={() => setOpen(true)}>
+      <Button
+        variant="outlined"
+        sx={{ mb: 1 }}
+        onClick={() => {
+          setAction("Add");
+          setOpen(true);
+        }}
+      >
         Add Employee
       </Button>
-      <AddEmployee open={open} onClose={() => setOpen(false)} />
+      {open && (
+        <AddEmployee
+          open={open}
+          onClose={() => {
+            setOpen(false);
+            setAction("");
+            setEmployee(null);
+          }}
+          action={action}
+          employee={employee}
+        />
+      )}
       {isPending && <div>loading...</div>}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
