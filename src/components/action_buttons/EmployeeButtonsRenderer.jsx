@@ -2,7 +2,7 @@ import { Button, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import { useTheme } from "@mui/material/styles";
-function EmployeeButtonsRenderer() {
+const EmployeeButtonsRenderer = ({ data, onDelete }) => {
   const theme = useTheme();
   const buttonStyle = {
     display: "flex",
@@ -38,8 +38,9 @@ function EmployeeButtonsRenderer() {
         sx={buttonStyle}
         variant="contained"
         startIcon={<DeleteIcon sx={iconStyle} />}
+        onClick={() => onDelete(data.employeeId)}
       ></Button>
     </Box>
   );
-}
+};
 export default EmployeeButtonsRenderer;
