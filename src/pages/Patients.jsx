@@ -10,7 +10,7 @@ import PatientsButtonsRenderer from "../components/action_buttons/PatientsButton
 import AssignClinician from "./AssignClinician";
 import Toast from "../components/Toast";
 import { useState } from "react";
-import { useDeleteMutation } from "../mutations/useDeleteMutation";
+import { useDeletePatientMutation } from "../mutations/useDeletePatientMutation";
 const Patients = () => {
   const [open, setOpen] = useState(false);
   const [openAssignTo, setOpenAssignTo] = useState(false);
@@ -24,7 +24,7 @@ const Patients = () => {
     toastSeverity: ""
   });
   const queryClient = useQueryClient();
-  const patientRow = useDeleteMutation();
+  const patientRow = useDeletePatientMutation();
   const columnDefs = [
     { field: "patientId", hide: true },
     {
