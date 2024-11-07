@@ -12,12 +12,14 @@ import {
 import Grid from "@mui/material/Grid2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { addEmployee } from "../services/employees";
+import { postEmployee, putEmployee } from "../services/employees";
 import Toast from "../components/Toast";
 function AddEmployee({ open, onClose, action, employee = null }) {
-  const [openToast, setOpenToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastSeverity, setToastSeverity] = useState("");
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   const queryClient = useQueryClient();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -35,41 +37,39 @@ function AddEmployee({ open, onClose, action, employee = null }) {
     setEmployeeType("");
   }
   const { mutate, isPending } = useMutation({
-    mutationFn: addEmployee,
+    mutationFn: employee ? putEmployee : postEmployee,
     onSuccess: (data) => {
-      setToastSeverity("success");
-      setToastMessage(data);
-      setOpenToast(true);
+      setToast({ open: true, message: data, severity: "success" });
       queryClient.invalidateQueries({ queryKey: ["employees"] });
       handleReset();
       const timeout = setTimeout(() => onClose(), 3000);
       return () => clearTimeout(timeout);
     },
     onError: (err) => {
-      setToastSeverity("error");
-      setToastMessage(
-        `Employee data could not be saved due to:  ${err.message}`
-      );
-      setOpenToast(true);
+      setToast({
+        open: true,
+        message: `Employee data could not be saved due to:  ${err.message}`,
+        severity: "error",
+      });
     },
   });
   function handleSubmit(event) {
     event.preventDefault();
     if (employee === null) {
-      const newEmployee = {
+      const employeeData = {
         fullName,
         email,
         employeeType,
       };
-      mutate(newEmployee);
+      mutate(employeeData);
     } else {
-      const newEmployee = {
+      const employeeData = {
         fullName,
         email,
         employeeType,
         employeeId: employee.employeeId,
       };
-      mutate(newEmployee);
+      mutate(employeeData);
     }
   }
   return (
@@ -167,12 +167,14 @@ function AddEmployee({ open, onClose, action, employee = null }) {
             </form>
           </CardContent>
         </Card>
-        <Toast
-          open={openToast}
-          onClose={() => setOpenToast(false)}
-          message={toastMessage}
-          severity={toastSeverity}
-        />
+        {toast.open && (
+          <Toast
+            onClose={() => setToast({ ...(open = false) })}
+            open={toast.open}
+            message={toast.message}
+            severity={toast.severity}
+          />
+        )}
       </>
     </Modal>
   );

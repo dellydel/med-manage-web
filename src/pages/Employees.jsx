@@ -8,9 +8,11 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import AddEmployee from "./AddEmployee";
 const Employees = () => {
-  const [open, setOpen] = useState(false);
-  const [action, setAction] = useState("");
-  const [employee, setEmployee] = useState(null);
+  const [employeeModal, setEmployeeModal] = useState({
+    open: false,
+    action: "",
+    employee: null,
+  });
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
@@ -54,7 +56,7 @@ const Employees = () => {
       headerName: "Actions",
       width: "310px",
       cellRenderer: EmployeeButtonsRenderer,
-      cellRendererParams: { setAction, setOpen, setEmployee },
+      cellRendererParams: { setEmployeeModal },
     },
   ];
   return (
@@ -63,23 +65,20 @@ const Employees = () => {
       <Button
         variant="outlined"
         sx={{ mb: 1 }}
-        onClick={() => {
-          setAction("Add");
-          setOpen(true);
-        }}
+        onClick={() =>
+          setEmployeeModal({ action: "Add", open: true, employee: null })
+        }
       >
         Add Employee
       </Button>
-      {open && (
+      {employeeModal.open && (
         <AddEmployee
-          open={open}
-          onClose={() => {
-            setOpen(false);
-            setAction("");
-            setEmployee(null);
-          }}
-          action={action}
-          employee={employee}
+          open={employeeModal.open}
+          onClose={() =>
+            setEmployeeModal({ open: false, action: "", employee: null })
+          }
+          action={employeeModal.action}
+          employee={employeeModal.employee}
         />
       )}
       {isPending && <div>loading...</div>}

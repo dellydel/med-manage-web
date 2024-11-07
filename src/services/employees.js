@@ -9,10 +9,14 @@ export const getEmployeesByType = async (type) => {
   return data;
 };
 
-export const addEmployee = async (newEmployee) => {
-  const addPath = await api.post("/employees", newEmployee);
-  const editPath = await api.put("/employees", newEmployee);
-  const { data, error } = newEmployee.employeeId ? editPath : addPath;
+export const postEmployee = async (employeeData) => {
+  const { data, error } = await api.post("/employees", employeeData);
+  if (error) throw new Error("Employee data could not be saved");
+  return data;
+};
+
+export const putEmployee = async (employeeData) => {
+  const { data, error } = await api.put("/employees", employeeData);
   if (error) throw new Error("Employee data could not be saved");
   return data;
 };

@@ -2,7 +2,7 @@ import { Button, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import { useTheme } from "@mui/material/styles";
-function EmployeeButtonsRenderer({ data, setAction, setOpen, setEmployee }) {
+function EmployeeButtonsRenderer({ data, setEmployeeModal }) {
   const theme = useTheme();
   const buttonStyle = {
     display: "flex",
@@ -30,11 +30,13 @@ function EmployeeButtonsRenderer({ data, setAction, setOpen, setEmployee }) {
         sx={buttonStyle}
         variant="contained"
         startIcon={<NoteAltIcon sx={iconStyle} />}
-        onClick={() => {
-          setAction("Edit");
-          setOpen(true);
-          setEmployee(data);
-        }}
+        onClick={() =>
+          setEmployeeModal({
+            action: "Edit",
+            open: true,
+            employee: data,
+          })
+        }
       >
         Edit
       </Button>
