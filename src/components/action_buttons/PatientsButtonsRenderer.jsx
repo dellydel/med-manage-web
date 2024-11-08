@@ -4,7 +4,7 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useTheme } from "@mui/material/styles";
-const PatientsButtonsRenderer = () => {
+const PatientsButtonsRenderer = ({ data, onDelete }) => {
   const theme = useTheme();
   const buttonStyle = {
     textTransform: "none",
@@ -40,6 +40,7 @@ const PatientsButtonsRenderer = () => {
         sx={buttonStyle}
         variant="contained"
         startIcon={<DeleteIcon sx={iconStyle} />}
+        onClick={() => onDelete(data.patientId)}
       ></Button>
       <Button
         sx={buttonStyle}
