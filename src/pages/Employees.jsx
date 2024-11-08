@@ -70,6 +70,7 @@ const Employees = () => {
           onDelete={() => {
             handleDeleteEmployee(params.data.employeeId);
           }}
+          setEmployeeModal={setEmployeeModal}
         />
       ),
     },
