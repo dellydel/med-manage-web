@@ -2,7 +2,7 @@ import { Button, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import { useTheme } from "@mui/material/styles";
-const EmployeeButtonsRenderer = ({ data, onDelete }) => {
+const EmployeeButtonsRenderer = ({ data, onDelete, setEmployeeModal }) => {
   const theme = useTheme();
   const buttonStyle = {
     display: "flex",
@@ -11,11 +11,11 @@ const EmployeeButtonsRenderer = ({ data, onDelete }) => {
     gap: 1,
     textTransform: "none",
     color: "white",
-    bgcolor: theme.palette.error.main
+    bgcolor: theme.palette.error.main,
   };
   const iconStyle = {
     ml: 1,
-    mr: 1
+    mr: 1,
   };
   return (
     <Box
@@ -23,14 +23,23 @@ const EmployeeButtonsRenderer = ({ data, onDelete }) => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        gap: 1
+        gap: 1,
       }}
     >
       <Button
         sx={buttonStyle}
         variant="contained"
         startIcon={<NoteAltIcon sx={iconStyle} />}
-      ></Button>
+        onClick={() =>
+          setEmployeeModal({
+            action: "Edit",
+            open: true,
+            employee: data,
+          })
+        }
+      >
+        Edit
+      </Button>
       <Button sx={buttonStyle} variant="contained" fullWidth>
         Reset Password
       </Button>
