@@ -8,48 +8,88 @@ import {
   Typography
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { addPatient } from "../services/patients";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Toast from "../components/Toast";
-const AddPatient = ({ open, onClose }) => {
+import useAddPatientMutation from "../mutations/useAddPatientMutation";
+import { useQueryClient } from "@tanstack/react-query";
+import useUpdatePatientMutation from "../mutations/useUpdatePatientMutation";
+const PatientModalForm = ({ open, onClose, retrievedData }) => {
+  const [formTitle, setFormTitle] = useState("Add Patient");
   const { register, handleSubmit, reset } = useForm();
+  const [edit, setEdit] = useState(false);
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
     toastSeverity: ""
   });
   const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: addPatient,
-    onSuccess: (data) => {
-      setToastData({
-        toastSeverity: "success",
-        toastMessage: data,
-        openToast: true
-      });
-      reset();
-      handleCloseForm();
-    },
-    onSettled: async (_, error) => {
-      if (error) {
-        setToastData({
-          toastSeverity: "error",
-          toastMessage: `${error.message}`,
-          openToast: true
-        });
-      } else {
-        await queryClient.invalidateQueries({ queryKey: ["patients"] });
-      }
+  const patientAddRow = useAddPatientMutation();
+  const patientUptateRow = useUpdatePatientMutation();
+  useEffect(() => {
+    if (retrievedData) {
+      const { id, ...data } = retrievedData;
+      setFormTitle("Edit Patient");
+      setEdit(true);
+      reset(data);
     }
-  });
-  const onSubmit = (data) => {
-    mutate(data);
+  }, [reset]);
+  const handleAddPatient = (data) => {
+    patientAddRow.mutate(data, {
+      onSuccess: (data) => {
+        setToastData({
+          openToast: true,
+          toastMessage: data,
+          toastSeverity: "success"
+        });
+      },
+      onSettled: async (_, err) => {
+        if (err) {
+          setToastData({
+            openToast: true,
+            toastMessage: `Patient could not be deleted:  ${err.message}`,
+            toastSeverity: "error"
+          });
+        } else {
+          await queryClient.invalidateQueries({ queryKey: ["patients"] });
+        }
+      }
+    });
   };
-  const handleCloseForm = () => {
-    const timeout = setTimeout(() => onClose(), 3000);
-    return () => clearTimeout(timeout);
+  const handleUpdatePatient = (data) => {
+    patientUptateRow.mutate(data, {
+      onSuccess: (data) => {
+        setToastData({
+          openToast: true,
+          toastMessage: data,
+          toastSeverity: "success"
+        });
+      },
+      onSettled: async (_, err) => {
+        if (err) {
+          setToastData({
+            openToast: true,
+            toastMessage: `Patient data could not be updated:  ${err.message}`,
+            toastSeverity: "error"
+          });
+        } else {
+          await queryClient.invalidateQueries({ queryKey: ["patients"] });
+        }
+      }
+    });
+  };
+  const onSubmit = (data) => {
+    if (edit) {
+      handleUpdatePatient(data);
+    } else {
+      handleAddPatient(data);
+    }
+  };
+  const handleClose = () => {
+    setToastData({
+      ...toastData,
+      openToast: false
+    });
   };
   return (
     <Modal open={open} onClose={onClose}>
@@ -58,7 +98,7 @@ const AddPatient = ({ open, onClose }) => {
           <Grid container bgcolor="#1976d2" color="#fff" padding={2}>
             <Grid size={10}>
               <Typography variant="h5" align="center" marginLeft={12}>
-                Add Patient
+                {formTitle}
               </Typography>
             </Grid>
             <Grid size={2}>
@@ -286,9 +326,9 @@ const AddPatient = ({ open, onClose }) => {
                     variant="contained"
                     size="small"
                     color="success"
-                    disabled={isPending}
+                    disabled={patientAddRow.isPending}
                   >
-                    {isPending ? "adding patient.." : "Add"}
+                    {patientAddRow.isPending ? "saving data.." : "Save"}
                   </Button>
                 </Grid>
               </Grid>
@@ -297,12 +337,12 @@ const AddPatient = ({ open, onClose }) => {
         </Card>
         <Toast
           open={toastData.openToast}
-          onClose={() => setOpenToast(false)}
-          severity={toastData.toastSeverity}
+          onClose={handleClose}
           message={toastData.toastMessage}
+          severity={toastData.toastSeverity}
         />
       </>
     </Modal>
   );
 };
-export default AddPatient;
+export default PatientModalForm;
