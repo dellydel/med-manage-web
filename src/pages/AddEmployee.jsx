@@ -169,7 +169,7 @@ function AddEmployee({ open, onClose, action, employee = null }) {
         </Card>
         {toast.open && (
           <Toast
-            onClose={() => setToast({ ...(open = false) })}
+            onClose={() => setToast({ ...toast, open: false })}
             open={toast.open}
             message={toast.message}
             severity={toast.severity}
