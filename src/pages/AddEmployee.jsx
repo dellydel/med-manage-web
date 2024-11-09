@@ -11,47 +11,66 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import { addEmployee } from "../services/employees";
+import { useEffect, useState } from "react";
+import { postEmployee, putEmployee } from "../services/employees";
 import Toast from "../components/Toast";
-function AddEmployee({ open, onClose }) {
-  const [openToast, setOpenToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastSeverity, setToastSeverity] = useState("");
+function AddEmployee({ open, onClose, action, employee = null }) {
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
   const queryClient = useQueryClient();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [employeeType, setEmployeeType] = useState("");
+  useEffect(() => {
+    if (employee) {
+      setFullName(employee.fullName);
+      setEmail(employee.email);
+      setEmployeeType(employee.employeeType);
+    }
+  }, []);
   function handleReset() {
     setFullName("");
     setEmail("");
     setEmployeeType("");
   }
   const { mutate, isPending } = useMutation({
-    mutationFn: addEmployee,
+    mutationFn: employee ? putEmployee : postEmployee,
     onSuccess: (data) => {
-      setToastSeverity("success");
-      setToastMessage(data);
-      setOpenToast(true);
+      setToast({ open: true, message: data, severity: "success" });
       queryClient.invalidateQueries({ queryKey: ["employees"] });
       handleReset();
       const timeout = setTimeout(() => onClose(), 3000);
       return () => clearTimeout(timeout);
     },
     onError: (err) => {
-      setToastSeverity("error");
-      setToastMessage(`Employee could not be added due to:  ${err.message}`);
-      setOpenToast(true);
+      setToast({
+        open: true,
+        message: `Employee data could not be saved due to:  ${err.message}`,
+        severity: "error",
+      });
     },
   });
   function handleSubmit(event) {
     event.preventDefault();
-    const newEmployee = {
-      fullName,
-      email,
-      employeeType,
-    };
-    mutate(newEmployee);
+    if (employee === null) {
+      const employeeData = {
+        fullName,
+        email,
+        employeeType,
+      };
+      mutate(employeeData);
+    } else {
+      const employeeData = {
+        fullName,
+        email,
+        employeeType,
+        employeeId: employee.employeeId,
+      };
+      mutate(employeeData);
+    }
   }
   return (
     <Modal open={open} onClose={onClose}>
@@ -60,7 +79,7 @@ function AddEmployee({ open, onClose }) {
           <Grid container bgcolor="#1976d2" color="#fff" padding={2}>
             <Grid size={10}>
               <Typography variant="h5" align="center" marginLeft={12}>
-                Add Employee
+                {action} Employee
               </Typography>
             </Grid>
             <Grid size={2}>
@@ -141,19 +160,21 @@ function AddEmployee({ open, onClose }) {
                     color="success"
                     disabled={isPending}
                   >
-                    Add
+                    Save
                   </Button>
                 </Grid>
               </Grid>
             </form>
           </CardContent>
         </Card>
-        <Toast
-          open={openToast}
-          onClose={() => setOpenToast(false)}
-          message={toastMessage}
-          severity={toastSeverity}
-        />
+        {toast.open && (
+          <Toast
+            onClose={() => setToast({ ...toast, open: false })}
+            open={toast.open}
+            message={toast.message}
+            severity={toast.severity}
+          />
+        )}
       </>
     </Modal>
   );
