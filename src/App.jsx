@@ -59,30 +59,6 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/Employees"
-              element={
-                <ProtectedRoute>
-                  <Employees />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/Patients"
-              element={
-                <ProtectedRoute>
-                  <Patients />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/In-service Management"
-              element={
-                <ProtectedRoute>
-                  <InService />
-                </ProtectedRoute>
-              }
-            />
           </Route>
         </Routes>
       </AuthProvider>
