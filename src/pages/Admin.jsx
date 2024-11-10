@@ -1,5 +1,6 @@
 import { Button, Box } from "@mui/material";
 import { Groups2, AirlineSeatFlatAngledTwoTone } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const Admin = () => {
   return (
@@ -15,6 +16,8 @@ const Admin = () => {
       }}
     >
       <Button
+        component={Link}
+        to="/employees"
         sx={{
           fontSize: "18px",
           height: "150px",
@@ -40,6 +43,8 @@ const Admin = () => {
         Employee Management
       </Button>
       <Button
+        component={Link}
+        to="/patients"
         sx={{
           height: "150px",
           width: "340px",
@@ -65,6 +70,8 @@ const Admin = () => {
         Patients Management
       </Button>
       <Button
+        component={Link}
+        to="/in-service"
         sx={{
           fontSize: "18px",
           textTransform: "none",
