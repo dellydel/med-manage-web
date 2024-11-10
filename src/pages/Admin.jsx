@@ -71,7 +71,7 @@ const Admin = () => {
       </Button>
       <Button
         component={Link}
-        to="/in-Service"
+        to="/in-service"
         sx={{
           fontSize: "18px",
           textTransform: "none",
