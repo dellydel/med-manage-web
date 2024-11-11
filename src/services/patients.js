@@ -13,3 +13,8 @@ export const addPatient = async (newPatient) => {
   if (error) throw new Error("Patient was not created due to API error");
   return data;
 };
+export const updatePatient = async (patient) => {
+  const { data, error } = await api.put(`/patients`, patient);
+  if (error) throw new Error(`Patient Data not Updated : ${error.message}`);
+  return data;
+};

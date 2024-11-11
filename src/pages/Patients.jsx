@@ -5,7 +5,7 @@ import ReAssignButton from "../components/action_buttons/ReAssignButton";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getPatients } from "../services/patients";
 import { Button } from "@mui/material";
-import AddPatient from "./AddPatient";
+import PatientModalForm from "./PatientModalForm";
 import PatientsButtonsRenderer from "../components/action_buttons/PatientsButtonsRenderer";
 import AssignClinician from "./AssignClinician";
 import Toast from "../components/Toast";
@@ -66,6 +66,7 @@ const Patients = () => {
           onDelete={() => {
             handleDelete(params.data.patientId);
           }}
+          onUpdate={() => params.data}
         />
       )
     }
@@ -106,7 +107,9 @@ const Patients = () => {
           Add Patient
         </Button>
         {isPending && <div>loading...</div>}
-        {open && <AddPatient open={open} onClose={() => setOpen(false)} />}
+        {open && (
+          <PatientModalForm open={open} onClose={() => setOpen(false)} />
+        )}
         {openAssignTo && (
           <AssignClinician
             open={openAssignTo}

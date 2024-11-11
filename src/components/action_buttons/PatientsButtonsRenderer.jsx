@@ -4,7 +4,11 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useTheme } from "@mui/material/styles";
+import PatientModalForm from "../../pages/PatientModalForm";
+import { useState } from "react";
 const PatientsButtonsRenderer = ({ data, onDelete }) => {
+  const [loadModalForm, setLoadModalForm] = useState(false);
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const buttonStyle = {
     textTransform: "none",
@@ -16,6 +20,14 @@ const PatientsButtonsRenderer = ({ data, onDelete }) => {
     height: "100%",
     ml: 1,
     mr: 1
+  };
+  const handleLoadModalForm = () => {
+    setLoadModalForm(true);
+    setOpen(true);
+  };
+  const handleCloseModalForm = () => {
+    const timeout = setTimeout(() => onClose(), 3000);
+    return () => clearTimeout(timeout);
   };
   return (
     <Box
@@ -35,6 +47,7 @@ const PatientsButtonsRenderer = ({ data, onDelete }) => {
         sx={buttonStyle}
         variant="contained"
         startIcon={<NoteAltIcon sx={iconStyle} />}
+        onClick={handleLoadModalForm}
       ></Button>
       <Button
         sx={buttonStyle}
@@ -47,6 +60,13 @@ const PatientsButtonsRenderer = ({ data, onDelete }) => {
         variant="contained"
         startIcon={<InventoryIcon sx={iconStyle} />}
       ></Button>
+      {loadModalForm && (
+        <PatientModalForm
+          open={open}
+          onClose={() => setOpen(false)}
+          retrievedData={data}
+        />
+      )}
     </Box>
   );
 };
