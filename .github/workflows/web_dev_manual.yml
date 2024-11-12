@@ -6,7 +6,9 @@ on:
 jobs:
   Deploy:
     runs-on: ubuntu-latest
-    environment: development
+    environment:
+      name: development
+      url: https://medmanagedev.nextbyteweb.com
     steps:
       - name: Checkout
         uses: actions/checkout@master
