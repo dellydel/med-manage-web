@@ -18,3 +18,10 @@ export const updatePatient = async (patient) => {
   if (error) throw new Error(`Patient Data not Updated : ${error.message}`);
   return data;
 };
+
+export const postAssignClinician = async (assignData) => {
+  const { data, error } = await api.post("/assignments", assignData);
+  if (error)
+    throw new Error(`Clinician could not be assigned: ${error.message}`);
+  return data;
+};

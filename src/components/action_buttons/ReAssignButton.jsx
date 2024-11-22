@@ -1,15 +1,15 @@
 import { Button, Box } from "@mui/material";
-function ReAssignButton({ onClick }) {
+function ReAssignButton({ data, setClinicianModal }) {
   return (
     <Box>
       <Button
-        onClick={onClick}
+        onClick={() => setClinicianModal({ open: true, patient: data })}
         variant="contained"
         size="medium"
         sx={{
           py: 0,
           px: 1,
-          textTransform: "none"
+          textTransform: "none",
         }}
       >
         Re Assign

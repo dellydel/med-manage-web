@@ -9,17 +9,48 @@ import {
   Modal,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { getEmployeesByType } from "../services/employees";
-const AssignClinician = ({ open, onClose }) => {
+import { postAssignClinician } from "../services/patients";
+import Toast from "../components/Toast";
+const AssignClinician = ({ open, onClose, patient }) => {
   const [clinician, setClinician] = useState("");
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
+  const patientId = patient.patientId;
+  const queryClient = useQueryClient();
   const { isPending, data: clinicians } = useQuery({
     queryKey: ["clinicians"],
     queryFn: () => getEmployeesByType("clinician"),
   });
+  const { mutate, isPending: isAssigning } = useMutation({
+    mutationFn: postAssignClinician,
+    onSuccess: (data) => {
+      setToast({ open: true, message: data, severity: "success" });
+      queryClient.invalidateQueries({ queryKey: ["patient"] });
+      handleReset();
+      const timeout = setTimeout(() => onClose(), 3000);
+      return () => clearTimeout(timeout);
+    },
+    onError: (err) => {
+      setToast({
+        open: true,
+        message: `Clinician could not be assigned due to:  ${err.message}`,
+        severity: "error",
+      });
+    },
+  });
   const handleReset = () => {
     setClinician("");
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const assignData = { patientId: patientId, employeeId: clinician };
+    mutate(assignData);
   };
   return (
     <Modal open={open} onClose={onClose}>
@@ -45,7 +76,7 @@ const AssignClinician = ({ open, onClose }) => {
             </Grid>
           </Grid>
           <CardContent>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={handleSubmit}>
               <Grid container spacing={1}>
                 <Grid size={3} marginTop={1} align="right" item>
                   Clinicians
@@ -73,6 +104,7 @@ const AssignClinician = ({ open, onClose }) => {
                     size="small"
                     color="inherit"
                     onClick={handleReset}
+                    disabled={isAssigning}
                   >
                     Cancel
                   </Button>
@@ -91,6 +123,14 @@ const AssignClinician = ({ open, onClose }) => {
             </form>
           </CardContent>
         </Card>
+        {toast.open && (
+          <Toast
+            onClose={() => setToast({ ...toast, open: false })}
+            open={toast.open}
+            message={toast.message}
+            severity={toast.severity}
+          />
+        )}
       </>
     </Modal>
   );
