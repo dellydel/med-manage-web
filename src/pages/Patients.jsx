@@ -16,12 +16,12 @@ const Patients = () => {
   const [openAssignTo, setOpenAssignTo] = useState(false);
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
-    queryFn: getPatients
+    queryFn: getPatients,
   });
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
-    toastSeverity: ""
+    toastSeverity: "",
   });
   const queryClient = useQueryClient();
   const patientRow = useDeletePatientMutation();
@@ -33,27 +33,29 @@ const Patients = () => {
       },
       headerName: "Patient Name",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "email",
       headerName: "Patient Email",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "",
       headerName: "Clinician Assigned",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       headerName: "Assign To",
       width: "118vw",
-      cellRenderer: ReAssignButton,
-      cellRendererParams: {
-        onClick: () => setOpenAssignTo(true)
-      }
+      cellRenderer: (params) => (
+        <ReAssignButton
+          onClick={() => setOpenAssignTo(true)}
+          data={params.data}
+        />
+      ),
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
     {
@@ -68,13 +70,13 @@ const Patients = () => {
           }}
           onUpdate={() => params.data}
         />
-      )
-    }
+      ),
+    },
   ];
   const handleClose = () => {
     setToastData({
       ...toastData,
-      openToast: false
+      openToast: false,
     });
   };
   const handleDelete = (id) => {
@@ -83,7 +85,7 @@ const Patients = () => {
         setToastData({
           openToast: true,
           toastMessage: data,
-          toastSeverity: "success"
+          toastSeverity: "success",
         });
       },
       onSettled: async (_, err) => {
@@ -91,12 +93,12 @@ const Patients = () => {
           setToastData({
             openToast: true,
             toastMessage: `Patient could not be deleted:  ${err.message}`,
-            toastSeverity: "error"
+            toastSeverity: "error",
           });
         } else {
           await queryClient.invalidateQueries({ queryKey: ["patients"] });
         }
-      }
+      },
     });
   };
   return (

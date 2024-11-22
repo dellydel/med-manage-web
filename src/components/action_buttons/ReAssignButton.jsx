@@ -1,5 +1,5 @@
 import { Button, Box } from "@mui/material";
-function ReAssignButton({ onClick }) {
+function ReAssignButton({ onClick, data }) {
   return (
     <Box>
       <Button
@@ -9,10 +9,10 @@ function ReAssignButton({ onClick }) {
         sx={{
           py: 0,
           px: 1,
-          textTransform: "none"
+          textTransform: "none",
         }}
       >
-        Re Assign
+        {data.clinicianAssigned == null ? "Assign" : "Reassign"}
       </Button>
     </Box>
   );
