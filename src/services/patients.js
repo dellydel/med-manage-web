@@ -25,3 +25,9 @@ export const postAssignClinician = async (assignData) => {
     throw new Error(`Clinician could not be assigned: ${error.message}`);
   return data;
 };
+export const putAssignClinician = async (assignData) => {
+  const { data, error } = await api.put("/assignments", assignData);
+  if (error)
+    throw new Error(`Clinician could not be re assigned: ${error.message}`);
+  return data;
+};

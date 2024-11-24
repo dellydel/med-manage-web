@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid2";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { getEmployeesByType } from "../services/employees";
-import { postAssignClinician } from "../services/patients";
+import { postAssignClinician, putAssignClinician } from "../services/patients";
 import Toast from "../components/Toast";
 const AssignClinician = ({ open, onClose, patient }) => {
   const [clinician, setClinician] = useState("");
@@ -22,16 +22,18 @@ const AssignClinician = ({ open, onClose, patient }) => {
     severity: "",
   });
   const patientId = patient.patientId;
+  const clinicianAssigned = patient.clinicianAssigned;
   const queryClient = useQueryClient();
   const { isPending, data: clinicians } = useQuery({
     queryKey: ["clinicians"],
     queryFn: () => getEmployeesByType("clinician"),
   });
+
   const { mutate, isPending: isAssigning } = useMutation({
-    mutationFn: postAssignClinician,
+    mutationFn: clinicianAssigned ? putAssignClinician : postAssignClinician,
     onSuccess: (data) => {
       setToast({ open: true, message: data, severity: "success" });
-      queryClient.invalidateQueries({ queryKey: ["patient"] });
+      queryClient.invalidateQueries({ queryKey: ["patients"] });
       handleReset();
       const timeout = setTimeout(() => onClose(), 3000);
       return () => clearTimeout(timeout);
@@ -52,6 +54,8 @@ const AssignClinician = ({ open, onClose, patient }) => {
     const assignData = { patientId: patientId, employeeId: clinician };
     mutate(assignData);
   };
+  console.log(patient);
+  console.log(clinicians);
   return (
     <Modal open={open} onClose={onClose}>
       <>
@@ -91,7 +95,11 @@ const AssignClinician = ({ open, onClose, patient }) => {
                     required
                   >
                     {clinicians?.map((p) => (
-                      <MenuItem value={p?.employeeId} key={p?.employeeId}>
+                      <MenuItem
+                        value={p?.employeeId}
+                        key={p?.employeeId}
+                        selected={p?.fullName === clinicianAssigned}
+                      >
                         {p?.fullName}
                       </MenuItem>
                     ))}
