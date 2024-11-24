@@ -56,13 +56,8 @@ const Patients = () => {
       width: "118vw",
       cellRenderer: (params) => (
         <ReAssignButton
-<<<<<<< HEAD
           data={params.data}
           setClinicianModal={setClinicianModal}
-=======
-          onClick={() => setOpenAssignTo(true)}
-          data={params.data}
->>>>>>> 2eea3d86d82ce94c85f05718c0704ca89e1ff38f
         />
       ),
     },

@@ -54,8 +54,6 @@ const AssignClinician = ({ open, onClose, patient }) => {
     const assignData = { patientId: patientId, employeeId: clinician };
     mutate(assignData);
   };
-  console.log(patient);
-  console.log(clinicians);
   return (
     <Modal open={open} onClose={onClose}>
       <>
