@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getEmployeesByType } from "../services/employees";
 import { postAssignClinician, putAssignClinician } from "../services/patients";
 import Toast from "../components/Toast";
@@ -54,6 +54,13 @@ const AssignClinician = ({ open, onClose, patient }) => {
     const assignData = { patientId: patientId, employeeId: clinician };
     mutate(assignData);
   };
+  useEffect(() => {
+    if (clinicianAssigned) {
+      clinicians?.map((c) => {
+        if (c.fullName === clinicianAssigned) setClinician(c.employeeId);
+      });
+    }
+  }, []);
   return (
     <Modal open={open} onClose={onClose}>
       <>
@@ -93,11 +100,7 @@ const AssignClinician = ({ open, onClose, patient }) => {
                     required
                   >
                     {clinicians?.map((p) => (
-                      <MenuItem
-                        value={p?.employeeId}
-                        key={p?.employeeId}
-                        selected={p?.fullName === clinicianAssigned}
-                      >
+                      <MenuItem value={p?.employeeId} key={p?.employeeId}>
                         {p?.fullName}
                       </MenuItem>
                     ))}
