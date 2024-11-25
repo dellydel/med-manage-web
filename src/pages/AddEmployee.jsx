@@ -11,31 +11,27 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { postEmployee, putEmployee } from "../services/employees";
 import Toast from "../components/Toast";
-function AddEmployee({ open, onClose, action, employee = null }) {
+
+const AddEmployee = ({ open, onClose, action, employee = null }) => {
   const [toast, setToast] = useState({
     open: false,
     message: "",
     severity: "",
   });
   const queryClient = useQueryClient();
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [employeeType, setEmployeeType] = useState("");
-  useEffect(() => {
-    if (employee) {
-      setFullName(employee.fullName);
-      setEmail(employee.email);
-      setEmployeeType(employee.employeeType);
-    }
-  }, []);
-  function handleReset() {
+  const [fullName, setFullName] = useState(employee?.fullName);
+  const [email, setEmail] = useState(employee?.email);
+  const [employeeType, setEmployeeType] = useState(employee?.employeeType);
+
+  const handleReset = () => {
     setFullName("");
     setEmail("");
     setEmployeeType("");
-  }
+  };
+
   const { mutate, isPending } = useMutation({
     mutationFn: employee ? putEmployee : postEmployee,
     onSuccess: (data) => {
@@ -53,7 +49,8 @@ function AddEmployee({ open, onClose, action, employee = null }) {
       });
     },
   });
-  function handleSubmit(event) {
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (employee === null) {
       const employeeData = {
@@ -71,7 +68,8 @@ function AddEmployee({ open, onClose, action, employee = null }) {
       };
       mutate(employeeData);
     }
-  }
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       <>
@@ -178,5 +176,5 @@ function AddEmployee({ open, onClose, action, employee = null }) {
       </>
     </Modal>
   );
-}
+};
 export default AddEmployee;
