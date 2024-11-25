@@ -13,15 +13,19 @@ import { useState } from "react";
 import { useDeletePatientMutation } from "../mutations/useDeletePatientMutation";
 const Patients = () => {
   const [open, setOpen] = useState(false);
-  const [openAssignTo, setOpenAssignTo] = useState(false);
+
+  const [clinicianModal, setClinicianModal] = useState({
+    open: false,
+    patient: null,
+  });
   const { isPending, data: patients } = useQuery({
     queryKey: ["patients"],
-    queryFn: getPatients
+    queryFn: getPatients,
   });
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
-    toastSeverity: ""
+    toastSeverity: "",
   });
   const queryClient = useQueryClient();
   const patientRow = useDeletePatientMutation();
@@ -33,27 +37,29 @@ const Patients = () => {
       },
       headerName: "Patient Name",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "email",
       headerName: "Patient Email",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       field: "",
       headerName: "Clinician Assigned",
       flex: 1,
-      filter: true
+      filter: true,
     },
     {
       headerName: "Assign To",
       width: "118vw",
-      cellRenderer: ReAssignButton,
-      cellRendererParams: {
-        onClick: () => setOpenAssignTo(true)
-      }
+      cellRenderer: (params) => (
+        <ReAssignButton
+          data={params.data}
+          setClinicianModal={setClinicianModal}
+        />
+      ),
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
     {
@@ -68,13 +74,13 @@ const Patients = () => {
           }}
           onUpdate={() => params.data}
         />
-      )
-    }
+      ),
+    },
   ];
   const handleClose = () => {
     setToastData({
       ...toastData,
-      openToast: false
+      openToast: false,
     });
   };
   const handleDelete = (id) => {
@@ -83,7 +89,7 @@ const Patients = () => {
         setToastData({
           openToast: true,
           toastMessage: data,
-          toastSeverity: "success"
+          toastSeverity: "success",
         });
       },
       onSettled: async (_, err) => {
@@ -91,12 +97,12 @@ const Patients = () => {
           setToastData({
             openToast: true,
             toastMessage: `Patient could not be deleted:  ${err.message}`,
-            toastSeverity: "error"
+            toastSeverity: "error",
           });
         } else {
           await queryClient.invalidateQueries({ queryKey: ["patients"] });
         }
-      }
+      },
     });
   };
   return (
@@ -110,10 +116,11 @@ const Patients = () => {
         {open && (
           <PatientModalForm open={open} onClose={() => setOpen(false)} />
         )}
-        {openAssignTo && (
+        {clinicianModal.open && (
           <AssignClinician
-            open={openAssignTo}
-            onClose={() => setOpenAssignTo(false)}
+            open={clinicianModal.open}
+            onClose={() => setClinicianModal({ open: false, patient: null })}
+            patient={clinicianModal.patient}
           />
         )}
         <div className="ag-theme-alpine" style={{ height: "70vh" }}>
