@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Select, MenuItem, FormControl, InputLabel, Checkbox, FormControlLabel, Button } from '@mui/material';
-const formConfig = require('../forms/demo.json');
+import demoForm from '../forms/demo.json';
 
 function DynamicForm() {
   const [formData, setFormData] = useState({});
@@ -23,8 +23,8 @@ function DynamicForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{formConfig.title}</h2>
-      {formConfig.inputs.map((input) => {
+      <h2>{demoForm.title}</h2>
+      {demoForm.inputs.map((input) => {
         switch (input.type) {
           case 'text':
             return (
