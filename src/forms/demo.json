@@ -1,0 +1,28 @@
+{
+    "title": "My Dynamic Form",
+    "inputs": [
+      {
+        "type": "text",
+        "label": "Name",
+        "name": "name",
+        "validation": {
+          "required": true
+        }
+      },
+      {
+        "type": "select",
+        "label": "Favorite Color",
+        "name": "color",
+        "options": ["Red", "Green", "Blue"],
+        "validation": {
+          "required": true
+        }
+      },
+      {
+        "type": "checkbox",
+        "label": "Agree to Terms",
+        "name": "terms"
+      }
+    ]
+  }
+  

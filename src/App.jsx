@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import InService from "./pages/InService";
 import Layout from "./pages/Layout";
+import Form from "./pages/Form"
 import { AuthProvider } from "./hooks/useAuth";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Routes, Route } from "react-router-dom";
@@ -56,6 +57,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <InService />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/form-demo"
+              element={
+                <ProtectedRoute>
+                  <Form />
                 </ProtectedRoute>
               }
             />
