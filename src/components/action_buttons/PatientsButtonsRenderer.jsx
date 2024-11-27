@@ -11,13 +11,15 @@ const PatientsButtonsRenderer = ({ data, onDelete }) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const buttonStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    gap: 1,
     textTransform: "none",
     color: "white",
     bgcolor: theme.palette.error.main
   };
   const iconStyle = {
-    width: "100%",
-    height: "100%",
     ml: 1,
     mr: 1
   };
