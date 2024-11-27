@@ -46,7 +46,7 @@ const Patients = () => {
       filter: true,
     },
     {
-      field: "",
+      field: "clinicianAssigned",
       headerName: "Clinician Assigned",
       flex: 1,
       filter: true,
