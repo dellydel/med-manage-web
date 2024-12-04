@@ -17,7 +17,7 @@ const Employees = () => {
     employee: null,
   });
 
-  const { isPending, data: employees } = useQuery({
+  const { data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
   });
@@ -80,12 +80,14 @@ const Employees = () => {
       ),
     },
   ];
+
   const handleClose = () => {
     setToastData({
       ...toastData,
       openToast: false,
     });
   };
+
   const handleDeleteEmployee = (id) => {
     employeeRow.mutate(id, {
       onSuccess: (data) => {
@@ -108,6 +110,7 @@ const Employees = () => {
       },
     });
   };
+
   return (
     <>
       <h2>Employee Management</h2>
@@ -130,7 +133,7 @@ const Employees = () => {
           employee={employeeModal.employee}
         />
       )}
-      {isPending && <div>loading...</div>}
+
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
           rowData={employees}

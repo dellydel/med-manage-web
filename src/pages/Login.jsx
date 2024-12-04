@@ -49,7 +49,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (err) {
-      setError(err.response.data);
+      setError(err.message);
     }
   };
 
@@ -70,7 +70,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (err) {
-      setError(err.response.data);
+      setError(err.message);
     }
   };
 
@@ -92,7 +92,7 @@ const Login = () => {
         setForgotPasswordState(false);
       }
     } catch (err) {
-      setError(err.response.data);
+      setError(err.message);
     }
   };
 
@@ -107,7 +107,7 @@ const Login = () => {
       setForgotPasswordState(true);
       setPasswordUpdate(false);
     } catch (err) {
-      setError(err.response.data);
+      setError(err.message);
     }
   };
 

@@ -11,6 +11,7 @@ import AssignClinician from "./AssignClinician";
 import Toast from "../components/Toast";
 import { useState } from "react";
 import { useDeletePatientMutation } from "../mutations/useDeletePatientMutation";
+
 const Patients = () => {
   const [open, setOpen] = useState(false);
 
@@ -18,10 +19,11 @@ const Patients = () => {
     open: false,
     patient: null,
   });
-  const { isPending, data: patients } = useQuery({
+  const { data: patients } = useQuery({
     queryKey: ["patients"],
     queryFn: getPatients,
   });
+
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
@@ -29,6 +31,7 @@ const Patients = () => {
   });
   const queryClient = useQueryClient();
   const patientRow = useDeletePatientMutation();
+
   const columnDefs = [
     { field: "patientId", hide: true },
     {
@@ -77,12 +80,14 @@ const Patients = () => {
       ),
     },
   ];
+
   const handleClose = () => {
     setToastData({
       ...toastData,
       openToast: false,
     });
   };
+
   const handleDelete = (id) => {
     patientRow.mutate(id, {
       onSuccess: (data) => {
@@ -105,6 +110,7 @@ const Patients = () => {
       },
     });
   };
+
   return (
     <>
       <div>
@@ -112,7 +118,6 @@ const Patients = () => {
         <Button variant="outlined" sx={{ mb: 1 }} onClick={() => setOpen(true)}>
           Add Patient
         </Button>
-        {isPending && <div>loading...</div>}
         {open && (
           <PatientModalForm open={open} onClose={() => setOpen(false)} />
         )}
@@ -123,6 +128,7 @@ const Patients = () => {
             patient={clinicianModal.patient}
           />
         )}
+
         <div className="ag-theme-alpine" style={{ height: "70vh" }}>
           <AgGridReact
             rowData={patients}
