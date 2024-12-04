@@ -9,23 +9,28 @@ import { useState } from "react";
 import AddEmployee from "./AddEmployee";
 import { useDeleteEmployeeMutation } from "../mutations/useDeleteEmployeeMutation";
 import Toast from "../components/Toast";
+
 const Employees = () => {
   const [employeeModal, setEmployeeModal] = useState({
     open: false,
     action: "",
     employee: null,
   });
+
   const { isPending, data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
   });
+
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
     toastSeverity: "",
   });
+
   const queryClient = useQueryClient();
   const employeeRow = useDeleteEmployeeMutation();
+
   const columnDefs = [
     {
       field: "employeeId",

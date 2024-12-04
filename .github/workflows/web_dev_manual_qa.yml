@@ -19,7 +19,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build Site
-        run: npm run build -- --mode development
+        run: npm run build -- --mode qa
       - name: Configure AWS Creds
         uses: aws-actions/configure-aws-credentials@master
         with:
