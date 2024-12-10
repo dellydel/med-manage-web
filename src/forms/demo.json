@@ -1,28 +1,45 @@
 {
-    "title": "My Dynamic Form",
-    "inputs": [
-      {
-        "type": "text",
-        "label": "Name",
-        "name": "name",
-        "validation": {
-          "required": true
-        }
+  "title": "My Dynamic Form",
+  "inputs": [
+    {
+      "type": "text",
+      "label": "First Name",
+      "name": "fname",
+      "validation": {
+        "required": true
       },
-      {
-        "type": "select",
-        "label": "Favorite Color",
-        "name": "color",
-        "options": ["Red", "Green", "Blue"],
-        "validation": {
-          "required": true
-        }
-      },
-      {
-        "type": "checkbox",
-        "label": "Agree to Terms",
-        "name": "terms"
+      "sx": { "width": "50%" }
+    },
+    {
+      "type": "text",
+      "label": "Middle Name",
+      "name": "mname",
+      "validation": {
+        "required": true
       }
-    ]
-  }
-  
+    },
+    {
+      "type": "text",
+      "label": "Last Name",
+      "name": "lname",
+      "validation": {
+        "required": true
+      }
+    },
+    {
+      "type": "select",
+      "label": "Favorite Color",
+      "name": "color",
+      "options": ["Red", "Green", "Blue"],
+      "validation": {
+        "required": true
+      }
+    },
+    {
+      "type": "checkbox",
+      "label": "Agree to Terms",
+      "name": "terms",
+      "sx": { "width": "100%" }
+    }
+  ]
+}

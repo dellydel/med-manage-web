@@ -1,16 +1,50 @@
-import React, { useState } from 'react';
-import { TextField, Select, MenuItem, FormControl, InputLabel, Checkbox, FormControlLabel, Button } from '@mui/material';
-import demoForm from '../forms/demo.json';
+import { useState } from "react";
+import {
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Checkbox,
+  FormControlLabel,
+  Button,
+  Box,
+} from "@mui/material";
+import demoForm from "../forms/demo.json";
+
+const inputStyles = {
+  width: "400px",
+  backgroundColor: "white",
+  borderRadius: "4px",
+  "& .MuiOutlinedInput-root": {
+    backgroundColor: "white",
+  },
+  "& .MuiInputBase-input": {
+    backgroundColor: "white",
+  },
+};
+
+const formContainerStyles = {
+  p: 3,
+  maxWidth: "1500px",
+};
+
+const fieldsContainerStyles = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: 2,
+  alignItems: "flex-start",
+};
 
 function DynamicForm() {
   const [formData, setFormData] = useState({});
-  const [errors, setErrors] = useState({});
+  const [errors] = useState({});
 
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
     setFormData({
       ...formData,
-      [name]: event.target.type === 'checkbox' ? checked : value,
+      [name]: event.target.type === "checkbox" ? checked : value,
     });
   };
 
@@ -22,63 +56,70 @@ function DynamicForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{demoForm.title}</h2>
-      {demoForm.inputs.map((input) => {
-        switch (input.type) {
-          case 'text':
-            return (
-              <TextField
-                key={input.name}
-                label={input.label}
-                name={input.name}
-                value={formData[input.name] || ''}
-                onChange={handleChange}
-                fullWidth
-                error={!!errors[input.name]}
-                helperText={errors[input.name]}
-              />
-            );
-          case 'select':
-            return (
-              <FormControl fullWidth key={input.name}>
-                <InputLabel>{input.label}</InputLabel>
-                <Select
-                  name={input.name}
-                  value={formData[input.name] || ''}
-                  onChange={handleChange}
-                  error={!!errors[input.name]}
-                >
-                  {input.options.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            );
-          case 'checkbox':
-            return (
-              <FormControlLabel
-                key={input.name}
-                control={
-                  <Checkbox
+    <Box sx={formContainerStyles}>
+      <form onSubmit={handleSubmit}>
+        <h2>{demoForm.title}</h2>
+        <Box sx={fieldsContainerStyles}>
+          {demoForm.inputs.map((input) => {
+            switch (input.type) {
+              case "text":
+                return (
+                  <TextField
+                    key={input.name}
+                    label={input.label}
                     name={input.name}
-                    checked={formData[input.name] || false}
+                    value={formData[input.name] || ""}
                     onChange={handleChange}
+                    error={!!errors[input.name]}
+                    helperText={errors[input.name]}
+                    sx={{ ...inputStyles, ...input.sx }}
                   />
-                }
-                label={input.label}
-              />
-            );
-          default:
-            return null;
-        }
-      })}
-      <Button type="submit" variant="contained">
-        Submit
-      </Button>
-    </form>
+                );
+              case "select":
+                return (
+                  <FormControl key={input.name} sx={inputStyles}>
+                    <InputLabel>{input.label}</InputLabel>
+                    <Select
+                      name={input.name}
+                      value={formData[input.name] || ""}
+                      onChange={handleChange}
+                      error={!!errors[input.name]}
+                    >
+                      {input.options.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                );
+              case "checkbox":
+                return (
+                  <FormControlLabel
+                    sx={input.sx}
+                    key={input.name}
+                    control={
+                      <Checkbox
+                        name={input.name}
+                        checked={formData[input.name] || false}
+                        onChange={handleChange}
+                      />
+                    }
+                    label={input.label}
+                  />
+                );
+              default:
+                return null;
+            }
+          })}
+        </Box>
+        <Box sx={{ mt: 2 }}>
+          <Button type="submit" variant="contained">
+            Submit
+          </Button>
+        </Box>
+      </form>
+    </Box>
   );
 }
 
