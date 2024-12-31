@@ -14,24 +14,28 @@ import { useDeletePatientMutation } from "../mutations/useDeletePatientMutation"
 
 const Patients = () => {
   const [open, setOpen] = useState(false);
-
+  const [toastData, setToastData] = useState({
+    openToast: false,
+    toastMessage: "",
+    toastSeverity: ""
+  });
   const [clinicianModal, setClinicianModal] = useState({
     open: false,
-    patient: null,
+    patient: null
   });
   const { data: patients } = useQuery({
     queryKey: ["patients"],
     queryFn: getPatients,
-  });
-
-  const [toastData, setToastData] = useState({
-    openToast: false,
-    toastMessage: "",
-    toastSeverity: "",
+    onError: (err) => {
+      setToastData({
+        openToast: true,
+        toastMessage: `${err.message} : on patients API call`,
+        toastSeverity: "error"
+      });
+    }
   });
   const queryClient = useQueryClient();
   const patientRow = useDeletePatientMutation();
-
   const columnDefs = [
     { field: "patientId", hide: true },
     {
@@ -40,19 +44,19 @@ const Patients = () => {
       },
       headerName: "Patient Name",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "email",
       headerName: "Patient Email",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "clinicianAssigned",
       headerName: "Clinician Assigned",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       headerName: "Assign To",
@@ -62,7 +66,7 @@ const Patients = () => {
           data={params.data}
           setClinicianModal={setClinicianModal}
         />
-      ),
+      )
     },
     { field: "status", headerName: "Status", flex: 1, filter: true },
     {
@@ -77,14 +81,14 @@ const Patients = () => {
           }}
           onUpdate={() => params.data}
         />
-      ),
-    },
+      )
+    }
   ];
 
   const handleClose = () => {
     setToastData({
       ...toastData,
-      openToast: false,
+      openToast: false
     });
   };
 
@@ -94,7 +98,7 @@ const Patients = () => {
         setToastData({
           openToast: true,
           toastMessage: data,
-          toastSeverity: "success",
+          toastSeverity: "success"
         });
       },
       onSettled: async (_, err) => {
@@ -102,12 +106,12 @@ const Patients = () => {
           setToastData({
             openToast: true,
             toastMessage: `Patient could not be deleted:  ${err.message}`,
-            toastSeverity: "error",
+            toastSeverity: "error"
           });
         } else {
           await queryClient.invalidateQueries({ queryKey: ["patients"] });
         }
-      },
+      }
     });
   };
 
