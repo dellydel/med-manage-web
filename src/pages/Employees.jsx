@@ -14,45 +14,48 @@ const Employees = () => {
   const [employeeModal, setEmployeeModal] = useState({
     open: false,
     action: "",
-    employee: null,
+    employee: null
   });
-
   const { data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
+    onError: (err) => {
+      setToastData({
+        openToast: true,
+        toastMessage: `${err.message} : on employees API call`,
+        toastSeverity: "error"
+      });
+    }
   });
-
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
-    toastSeverity: "",
+    toastSeverity: ""
   });
-
   const queryClient = useQueryClient();
   const employeeRow = useDeleteEmployeeMutation();
-
   const columnDefs = [
     {
       field: "employeeId",
-      hide: true,
+      hide: true
     },
     {
       field: "fullName",
       headerName: "Employee Name",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "email",
       headerName: "Employee Email",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "employeeType",
       headerName: "Employee Type",
       flex: 1,
-      filter: true,
+      filter: true
     },
     { field: "assigned", headerName: "Assigned", flex: 1, filter: true },
     { field: "onGoing", headerName: "On going", flex: 1, filter: true },
@@ -63,7 +66,7 @@ const Employees = () => {
       field: "lastLogin",
       headerName: "Last Login",
       flex: 1,
-      filter: true,
+      filter: true
     },
     {
       field: "actions",
@@ -77,24 +80,22 @@ const Employees = () => {
           }}
           setEmployeeModal={setEmployeeModal}
         />
-      ),
-    },
+      )
+    }
   ];
-
   const handleClose = () => {
     setToastData({
       ...toastData,
-      openToast: false,
+      openToast: false
     });
   };
-
   const handleDeleteEmployee = (id) => {
     employeeRow.mutate(id, {
       onSuccess: (data) => {
         setToastData({
           openToast: true,
           toastMessage: data,
-          toastSeverity: "success",
+          toastSeverity: "success"
         });
       },
       onSettled: async (_, err) => {
@@ -102,15 +103,14 @@ const Employees = () => {
           setToastData({
             openToast: true,
             toastMessage: `Employee could not be deleted:  ${err.message}`,
-            toastSeverity: "error",
+            toastSeverity: "error"
           });
         } else {
           await queryClient.invalidateQueries({ queryKey: ["employees"] });
         }
-      },
+      }
     });
   };
-
   return (
     <>
       <h2>Employee Management</h2>
@@ -133,7 +133,6 @@ const Employees = () => {
           employee={employeeModal.employee}
         />
       )}
-
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
           rowData={employees}
