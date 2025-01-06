@@ -115,7 +115,7 @@ const AssignClinician = ({ open, onClose, patient }) => {
                     onClick={handleReset}
                     disabled={isAssigning}
                   >
-                    Cancel
+                    Clear
                   </Button>
                   &nbsp;
                   <Button

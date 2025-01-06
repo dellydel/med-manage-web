@@ -5,7 +5,7 @@ import {
   CardContent,
   Modal,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useForm } from "react-hook-form";
@@ -21,7 +21,7 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
-    toastSeverity: ""
+    toastSeverity: "",
   });
   const queryClient = useQueryClient();
   const patientAddRow = useAddPatientMutation();
@@ -40,7 +40,7 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
         setToastData({
           openToast: true,
           toastMessage: data,
-          toastSeverity: "success"
+          toastSeverity: "success",
         });
       },
       onSettled: async (_, err) => {
@@ -48,12 +48,12 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
           setToastData({
             openToast: true,
             toastMessage: `Patient could not be deleted:  ${err.message}`,
-            toastSeverity: "error"
+            toastSeverity: "error",
           });
         } else {
           await queryClient.invalidateQueries({ queryKey: ["patients"] });
         }
-      }
+      },
     });
   };
   const handleUpdatePatient = (data) => {
@@ -62,7 +62,7 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
         setToastData({
           openToast: true,
           toastMessage: data,
-          toastSeverity: "success"
+          toastSeverity: "success",
         });
       },
       onSettled: async (_, err) => {
@@ -70,12 +70,12 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
           setToastData({
             openToast: true,
             toastMessage: `Patient data could not be updated:  ${err.message}`,
-            toastSeverity: "error"
+            toastSeverity: "error",
           });
         } else {
           await queryClient.invalidateQueries({ queryKey: ["patients"] });
         }
-      }
+      },
     });
   };
   const onSubmit = (data) => {
@@ -88,7 +88,7 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
   const handleClose = () => {
     setToastData({
       ...toastData,
-      openToast: false
+      openToast: false,
     });
   };
   return (
@@ -108,7 +108,7 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
                   sx={{
                     boxShadow: 3,
                     "&.hover": { boxShadow: 8 },
-                    borderRadius: 28
+                    borderRadius: 28,
                   }}
                 />
               </Typography>
@@ -318,7 +318,7 @@ const PatientModalForm = ({ open, onClose, retrievedData }) => {
                     size="small"
                     color="inherit"
                   >
-                    Cancel
+                    Clear
                   </Button>
                   &nbsp;
                   <Button
