@@ -76,6 +76,7 @@ const Patients = () => {
             handleDelete(params.data.patientId);
           }}
           onUpdate={() => params.data}
+          setToastData={setToastData}
         />
       ),
     },
@@ -119,13 +120,18 @@ const Patients = () => {
           Add Patient
         </Button>
         {open && (
-          <PatientModalForm open={open} onClose={() => setOpen(false)} />
+          <PatientModalForm
+            setToastData={setToastData}
+            open={open}
+            onClose={() => setOpen(false)}
+          />
         )}
         {clinicianModal.open && (
           <AssignClinician
             open={clinicianModal.open}
             onClose={() => setClinicianModal({ open: false, patient: null })}
             patient={clinicianModal.patient}
+            setToastData={setToastData}
           />
         )}
 

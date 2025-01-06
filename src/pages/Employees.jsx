@@ -131,6 +131,7 @@ const Employees = () => {
           }
           action={employeeModal.action}
           employee={employeeModal.employee}
+          setToastData={setToastData}
         />
       )}
 
