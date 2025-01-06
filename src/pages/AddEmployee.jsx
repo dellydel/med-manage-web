@@ -13,7 +13,6 @@ import Grid from "@mui/material/Grid2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { postEmployee, putEmployee } from "../services/employees";
-
 const AddEmployee = ({
   open,
   onClose,
@@ -52,7 +51,6 @@ const AddEmployee = ({
       });
     },
   });
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (employee === null) {
@@ -72,7 +70,6 @@ const AddEmployee = ({
       mutate(employeeData);
     }
   };
-
   return (
     <Modal open={open} onClose={onClose}>
       <>

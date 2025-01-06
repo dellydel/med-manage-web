@@ -11,7 +11,6 @@ import AssignClinician from "./AssignClinician";
 import Toast from "../components/Toast";
 import { useState } from "react";
 import { useDeletePatientMutation } from "../mutations/useDeletePatientMutation";
-
 const Patients = () => {
   const [open, setOpen] = useState(false);
 
@@ -81,14 +80,12 @@ const Patients = () => {
       ),
     },
   ];
-
   const handleClose = () => {
     setToastData({
       ...toastData,
       openToast: false,
     });
   };
-
   const handleDelete = (id) => {
     patientRow.mutate(id, {
       onSuccess: (data) => {
@@ -111,7 +108,6 @@ const Patients = () => {
       },
     });
   };
-
   return (
     <>
       <div>

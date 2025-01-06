@@ -15,7 +15,6 @@ import { getEmployeesByType } from "../services/employees";
 import { postAssignClinician, putAssignClinician } from "../services/patients";
 const AssignClinician = ({ open, onClose, patient, setToastData }) => {
   const [clinician, setClinician] = useState("");
-
   const patientId = patient.patientId;
   const clinicianAssigned = patient.clinicianAssigned;
   const queryClient = useQueryClient();

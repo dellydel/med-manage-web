@@ -9,28 +9,23 @@ import { useState } from "react";
 import AddEmployee from "./AddEmployee";
 import { useDeleteEmployeeMutation } from "../mutations/useDeleteEmployeeMutation";
 import Toast from "../components/Toast";
-
 const Employees = () => {
   const [employeeModal, setEmployeeModal] = useState({
     open: false,
     action: "",
     employee: null,
   });
-
   const { data: employees } = useQuery({
     queryKey: ["employees"],
     queryFn: getEmployees,
   });
-
   const [toastData, setToastData] = useState({
     openToast: false,
     toastMessage: "",
     toastSeverity: "",
   });
-
   const queryClient = useQueryClient();
   const employeeRow = useDeleteEmployeeMutation();
-
   const columnDefs = [
     {
       field: "employeeId",
@@ -80,14 +75,12 @@ const Employees = () => {
       ),
     },
   ];
-
   const handleClose = () => {
     setToastData({
       ...toastData,
       openToast: false,
     });
   };
-
   const handleDeleteEmployee = (id) => {
     employeeRow.mutate(id, {
       onSuccess: (data) => {
@@ -110,7 +103,6 @@ const Employees = () => {
       },
     });
   };
-
   return (
     <>
       <h2>Employee Management</h2>
@@ -134,7 +126,6 @@ const Employees = () => {
           setToastData={setToastData}
         />
       )}
-
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
         <AgGridReact
           rowData={employees}

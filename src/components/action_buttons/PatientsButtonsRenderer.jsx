@@ -27,10 +27,6 @@ const PatientsButtonsRenderer = ({ data, onDelete, setToastData }) => {
     setLoadModalForm(true);
     setOpen(true);
   };
-  const handleCloseModalForm = () => {
-    const timeout = setTimeout(() => onClose(), 3000);
-    return () => clearTimeout(timeout);
-  };
   return (
     <Box
       sx={{
