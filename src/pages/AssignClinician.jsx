@@ -21,8 +21,14 @@ const AssignClinician = ({ open, onClose, patient, setToastData }) => {
   const { isPending, data: clinicians } = useQuery({
     queryKey: ["clinicians"],
     queryFn: () => getEmployeesByType("clinician"),
+    onError: (err) => {
+      setToast({
+        open: true,
+        message: `${err.message} : on clinician API call`,
+        severity: "error",
+      });
+    },
   });
-
   const { mutate, isPending: isAssigning } = useMutation({
     mutationFn: clinicianAssigned ? putAssignClinician : postAssignClinician,
     onSuccess: (data) => {
@@ -112,7 +118,7 @@ const AssignClinician = ({ open, onClose, patient, setToastData }) => {
                     onClick={handleReset}
                     disabled={isAssigning}
                   >
-                    Cancel
+                    Clear
                   </Button>
                   &nbsp;
                   <Button

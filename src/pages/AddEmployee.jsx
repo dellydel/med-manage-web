@@ -148,7 +148,7 @@ const AddEmployee = ({
                     color="inherit"
                     onClick={handleReset}
                   >
-                    Cancel
+                    Clear
                   </Button>
                   &nbsp;
                   <Button

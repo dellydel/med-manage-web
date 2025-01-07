@@ -307,7 +307,7 @@ const PatientModalForm = ({ setToastData, open, onClose, retrievedData }) => {
                     size="small"
                     color="inherit"
                   >
-                    Cancel
+                    Clear
                   </Button>
                   &nbsp;
                   <Button
