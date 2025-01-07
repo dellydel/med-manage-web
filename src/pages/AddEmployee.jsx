@@ -148,7 +148,7 @@ const AddEmployee = ({ open, onClose, action, employee = null }) => {
                     color="inherit"
                     onClick={handleReset}
                   >
-                    Cancel
+                    Clear
                   </Button>
                   &nbsp;
                   <Button
