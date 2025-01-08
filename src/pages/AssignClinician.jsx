@@ -13,14 +13,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getEmployeesByType } from "../services/employees";
 import { postAssignClinician, putAssignClinician } from "../services/patients";
-import Toast from "../components/Toast";
-const AssignClinician = ({ open, onClose, patient }) => {
+const AssignClinician = ({ open, onClose, patient, setToastData }) => {
   const [clinician, setClinician] = useState("");
-  const [toast, setToast] = useState({
-    open: false,
-    message: "",
-    severity: "",
-  });
   const patientId = patient.patientId;
   const clinicianAssigned = patient.clinicianAssigned;
   const queryClient = useQueryClient();
@@ -38,17 +32,20 @@ const AssignClinician = ({ open, onClose, patient }) => {
   const { mutate, isPending: isAssigning } = useMutation({
     mutationFn: clinicianAssigned ? putAssignClinician : postAssignClinician,
     onSuccess: (data) => {
-      setToast({ open: true, message: data, severity: "success" });
+      setToastData({
+        openToast: true,
+        toastMessage: data,
+        toastSeverity: "success",
+      });
       queryClient.invalidateQueries({ queryKey: ["patients"] });
       handleReset();
-      const timeout = setTimeout(() => onClose(), 3000);
-      return () => clearTimeout(timeout);
+      onClose();
     },
     onError: (err) => {
-      setToast({
-        open: true,
-        message: `Clinician could not be assigned due to:  ${err.message}`,
-        severity: "error",
+      setToastData({
+        openToast: true,
+        toastMessage: `Clinician could not be assigned due to:  ${err.message}`,
+        toastSeverity: "error",
       });
     },
   });
@@ -138,14 +135,6 @@ const AssignClinician = ({ open, onClose, patient }) => {
             </form>
           </CardContent>
         </Card>
-        {toast.open && (
-          <Toast
-            onClose={() => setToast({ ...toast, open: false })}
-            open={toast.open}
-            message={toast.message}
-            severity={toast.severity}
-          />
-        )}
       </>
     </Modal>
   );

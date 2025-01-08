@@ -13,14 +13,13 @@ import Grid from "@mui/material/Grid2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { postEmployee, putEmployee } from "../services/employees";
-import Toast from "../components/Toast";
-
-const AddEmployee = ({ open, onClose, action, employee = null }) => {
-  const [toast, setToast] = useState({
-    open: false,
-    message: "",
-    severity: "",
-  });
+const AddEmployee = ({
+  open,
+  onClose,
+  action,
+  employee = null,
+  setToastData,
+}) => {
   const queryClient = useQueryClient();
   const [fullName, setFullName] = useState(employee?.fullName);
   const [email, setEmail] = useState(employee?.email);
@@ -35,21 +34,23 @@ const AddEmployee = ({ open, onClose, action, employee = null }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: employee ? putEmployee : postEmployee,
     onSuccess: (data) => {
-      setToast({ open: true, message: data, severity: "success" });
+      setToastData({
+        openToast: true,
+        toastMessage: data,
+        toastSeverity: "success",
+      });
       queryClient.invalidateQueries({ queryKey: ["employees"] });
       handleReset();
-      const timeout = setTimeout(() => onClose(), 3000);
-      return () => clearTimeout(timeout);
+      onClose();
     },
     onError: (err) => {
-      setToast({
+      setToastData({
         open: true,
         message: `Employee data could not be saved due to:  ${err.message}`,
         severity: "error",
       });
     },
   });
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (employee === null) {
@@ -69,7 +70,6 @@ const AddEmployee = ({ open, onClose, action, employee = null }) => {
       mutate(employeeData);
     }
   };
-
   return (
     <Modal open={open} onClose={onClose}>
       <>
@@ -129,7 +129,7 @@ const AddEmployee = ({ open, onClose, action, employee = null }) => {
                 </Grid>
                 <Grid size={9} item>
                   <Select
-                    id="userType"
+                    id="employeeType"
                     value={employeeType}
                     onChange={(e) => setEmployeeType(e.target.value)}
                     size="small"
@@ -165,14 +165,6 @@ const AddEmployee = ({ open, onClose, action, employee = null }) => {
             </form>
           </CardContent>
         </Card>
-        {toast.open && (
-          <Toast
-            onClose={() => setToast({ ...toast, open: false })}
-            open={toast.open}
-            message={toast.message}
-            severity={toast.severity}
-          />
-        )}
       </>
     </Modal>
   );

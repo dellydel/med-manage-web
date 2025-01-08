@@ -6,7 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useTheme } from "@mui/material/styles";
 import PatientModalForm from "../../pages/PatientModalForm";
 import { useState } from "react";
-const PatientsButtonsRenderer = ({ data, onDelete }) => {
+const PatientsButtonsRenderer = ({ data, onDelete, setToastData }) => {
   const [loadModalForm, setLoadModalForm] = useState(false);
   const [open, setOpen] = useState(false);
   const theme = useTheme();
@@ -17,19 +17,15 @@ const PatientsButtonsRenderer = ({ data, onDelete }) => {
     gap: 1,
     textTransform: "none",
     color: "white",
-    bgcolor: theme.palette.error.main
+    bgcolor: theme.palette.error.main,
   };
   const iconStyle = {
     ml: 1,
-    mr: 1
+    mr: 1,
   };
   const handleLoadModalForm = () => {
     setLoadModalForm(true);
     setOpen(true);
-  };
-  const handleCloseModalForm = () => {
-    const timeout = setTimeout(() => onClose(), 3000);
-    return () => clearTimeout(timeout);
   };
   return (
     <Box
@@ -37,7 +33,7 @@ const PatientsButtonsRenderer = ({ data, onDelete }) => {
         display: "flex",
         justifyContent: "space-evenly",
         alignItems: "center",
-        gap: 1
+        gap: 1,
       }}
     >
       <Button
@@ -67,6 +63,7 @@ const PatientsButtonsRenderer = ({ data, onDelete }) => {
           open={open}
           onClose={() => setOpen(false)}
           retrievedData={data}
+          setToastData={setToastData}
         />
       )}
     </Box>

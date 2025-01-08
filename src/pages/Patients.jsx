@@ -11,7 +11,6 @@ import AssignClinician from "./AssignClinician";
 import Toast from "../components/Toast";
 import { useState } from "react";
 import { useDeletePatientMutation } from "../mutations/useDeletePatientMutation";
-
 const Patients = () => {
   const [open, setOpen] = useState(false);
   const [toastData, setToastData] = useState({
@@ -80,18 +79,17 @@ const Patients = () => {
             handleDelete(params.data.patientId);
           }}
           onUpdate={() => params.data}
+          setToastData={setToastData}
         />
       )
     }
   ];
-
   const handleClose = () => {
     setToastData({
       ...toastData,
       openToast: false
     });
   };
-
   const handleDelete = (id) => {
     patientRow.mutate(id, {
       onSuccess: (data) => {
@@ -114,7 +112,6 @@ const Patients = () => {
       }
     });
   };
-
   return (
     <>
       <div>
@@ -123,13 +120,18 @@ const Patients = () => {
           Add Patient
         </Button>
         {open && (
-          <PatientModalForm open={open} onClose={() => setOpen(false)} />
+          <PatientModalForm
+            setToastData={setToastData}
+            open={open}
+            onClose={() => setOpen(false)}
+          />
         )}
         {clinicianModal.open && (
           <AssignClinician
             open={clinicianModal.open}
             onClose={() => setClinicianModal({ open: false, patient: null })}
             patient={clinicianModal.patient}
+            setToastData={setToastData}
           />
         )}
 

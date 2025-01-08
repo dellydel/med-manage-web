@@ -9,7 +9,6 @@ import { useState } from "react";
 import AddEmployee from "./AddEmployee";
 import { useDeleteEmployeeMutation } from "../mutations/useDeleteEmployeeMutation";
 import Toast from "../components/Toast";
-
 const Employees = () => {
   const [employeeModal, setEmployeeModal] = useState({
     open: false,
@@ -131,6 +130,7 @@ const Employees = () => {
           }
           action={employeeModal.action}
           employee={employeeModal.employee}
+          setToastData={setToastData}
         />
       )}
       <div className="ag-theme-alpine" style={{ height: "70vh" }}>
