@@ -34,7 +34,8 @@
       }
     },
     {
-      "type": "break"
+      "type": "break",
+      "name": "break1"
     },
     {
       "type": "label",
@@ -51,7 +52,8 @@
       }
     },
     {
-      "type": "break"
+      "type": "break",
+      "name": "break2"
     },
     {
       "type": "select",

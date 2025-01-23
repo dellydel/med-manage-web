@@ -9,7 +9,6 @@ import {
   FormControlLabel,
   Button,
   Box,
-  FormLabel,
   RadioGroup,
   Radio,
 } from "@mui/material";
@@ -119,7 +118,7 @@ function DynamicForm() {
                 );
               case "radio":
                 return (
-                  <FormControl>
+                  <FormControl key={input.name}>
                     <RadioGroup row name="row-radio-buttons-group">
                       {input.options.map((option) => (
                         <FormControlLabel
@@ -139,7 +138,7 @@ function DynamicForm() {
                   </FormControl>
                 );
               case "break": {
-                return <Box sx={{ width: "100%" }}></Box>;
+                return <Box key={input.name} sx={{ width: "100%" }}></Box>;
               }
               default:
                 return null;
