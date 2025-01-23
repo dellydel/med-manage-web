@@ -1,6 +1,13 @@
 {
   "title": "My Dynamic Form",
+  "customCSS": "",
   "inputs": [
+    {
+      "type": "label",
+      "name": "demoText",
+      "sx": { "width": "100%" },
+      "text": "This is demo text that can be placed anywhere in teh form. Please fill out the fields below."
+    },
     {
       "type": "text",
       "label": "First Name",
@@ -25,6 +32,26 @@
       "validation": {
         "required": true
       }
+    },
+    {
+      "type": "break"
+    },
+    {
+      "type": "label",
+      "name": "genderLabel",
+      "text": "Gender",
+      "sx": { "mt": 1, "mr": 2, "fontWeight": "bold" }
+    },
+    {
+      "type": "radio",
+      "name": "gender",
+      "options": ["Male", "Female"],
+      "validation": {
+        "required": true
+      }
+    },
+    {
+      "type": "break"
     },
     {
       "type": "select",
