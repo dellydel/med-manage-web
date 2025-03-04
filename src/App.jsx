@@ -1,11 +1,12 @@
 import Home from "./pages/Home";
 import Employees from "./pages/Employees";
 import Patients from "./pages/Patients";
+import PatientList from "./pages/PatientList";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import InService from "./pages/InService";
 import Layout from "./pages/Layout";
-import Form from "./pages/Form"
+import Form from "./pages/Form";
 import { AuthProvider } from "./hooks/useAuth";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Routes, Route } from "react-router-dom";
@@ -57,6 +58,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <InService />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/patient-list"
+              element={
+                <ProtectedRoute>
+                  <PatientList />
                 </ProtectedRoute>
               }
             />

@@ -36,7 +36,7 @@ const Patients = () => {
   const queryClient = useQueryClient();
   const patientRow = useDeletePatientMutation();
   const columnDefs = [
-    { field: "patientId", hide: true },
+    { field: "patientid", hide: true },
     {
       valueGetter: (params) => {
         return params.data.firstName + " " + params.data.lastName;
