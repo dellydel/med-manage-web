@@ -9,6 +9,8 @@ import {
   FormControlLabel,
   Button,
   Box,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 import demoForm from "../forms/demo.json";
 
@@ -108,6 +110,36 @@ function DynamicForm() {
                     label={input.label}
                   />
                 );
+              case "label":
+                return (
+                  <Box key={input.name} sx={input.sx}>
+                    {input.text}
+                  </Box>
+                );
+              case "radio":
+                return (
+                  <FormControl key={input.name}>
+                    <RadioGroup row name="row-radio-buttons-group">
+                      {input.options.map((option) => (
+                        <FormControlLabel
+                          key={option}
+                          control={
+                            <Radio
+                              name={input.name}
+                              value={option}
+                              checked={formData[input.name] === option}
+                              onChange={handleChange}
+                            />
+                          }
+                          label={option}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                );
+              case "break": {
+                return <Box key={input.name} sx={{ width: "100%" }}></Box>;
+              }
               default:
                 return null;
             }

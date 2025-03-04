@@ -13,36 +13,39 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getEmployeesByType } from "../services/employees";
 import { postAssignClinician, putAssignClinician } from "../services/patients";
-import Toast from "../components/Toast";
-const AssignClinician = ({ open, onClose, patient }) => {
+const AssignClinician = ({ open, onClose, patient, setToastData }) => {
   const [clinician, setClinician] = useState("");
-  const [toast, setToast] = useState({
-    open: false,
-    message: "",
-    severity: "",
-  });
   const patientId = patient.patientId;
   const clinicianAssigned = patient.clinicianAssigned;
   const queryClient = useQueryClient();
   const { isPending, data: clinicians } = useQuery({
     queryKey: ["clinicians"],
     queryFn: () => getEmployeesByType("clinician"),
-  });
-
-  const { mutate, isPending: isAssigning } = useMutation({
-    mutationFn: clinicianAssigned ? putAssignClinician : postAssignClinician,
-    onSuccess: (data) => {
-      setToast({ open: true, message: data, severity: "success" });
-      queryClient.invalidateQueries({ queryKey: ["patients"] });
-      handleReset();
-      const timeout = setTimeout(() => onClose(), 3000);
-      return () => clearTimeout(timeout);
-    },
     onError: (err) => {
       setToast({
         open: true,
-        message: `Clinician could not be assigned due to:  ${err.message}`,
+        message: `${err.message} : on clinician API call`,
         severity: "error",
+      });
+    },
+  });
+  const { mutate, isPending: isAssigning } = useMutation({
+    mutationFn: clinicianAssigned ? putAssignClinician : postAssignClinician,
+    onSuccess: (data) => {
+      setToastData({
+        openToast: true,
+        toastMessage: data,
+        toastSeverity: "success",
+      });
+      queryClient.invalidateQueries({ queryKey: ["patients"] });
+      handleReset();
+      onClose();
+    },
+    onError: (err) => {
+      setToastData({
+        openToast: true,
+        toastMessage: `Clinician could not be assigned due to:  ${err.message}`,
+        toastSeverity: "error",
       });
     },
   });
@@ -115,7 +118,7 @@ const AssignClinician = ({ open, onClose, patient }) => {
                     onClick={handleReset}
                     disabled={isAssigning}
                   >
-                    Cancel
+                    Clear
                   </Button>
                   &nbsp;
                   <Button
@@ -132,14 +135,6 @@ const AssignClinician = ({ open, onClose, patient }) => {
             </form>
           </CardContent>
         </Card>
-        {toast.open && (
-          <Toast
-            onClose={() => setToast({ ...toast, open: false })}
-            open={toast.open}
-            message={toast.message}
-            severity={toast.severity}
-          />
-        )}
       </>
     </Modal>
   );

@@ -1,7 +1,7 @@
 import { api } from "./axiosConfig";
 export const getPatients = async () => {
   const { data, error } = await api.get("/patients");
-  if (error) throw new Error("Failed to fetch patients");
+  if (error) throw new Error(`Error getting patients: ${error.message}`);
   return data;
 };
 export const deletePatient = async (patientId) => {
@@ -19,7 +19,6 @@ export const updatePatient = async (patient) => {
   if (error) throw new Error(`Patient Data not Updated : ${error.message}`);
   return data;
 };
-
 export const postAssignClinician = async (assignData) => {
   const { data, error } = await api.post("/assignments", assignData);
   if (error)
